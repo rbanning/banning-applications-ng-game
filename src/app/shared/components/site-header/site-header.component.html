@@ -1,0 +1,29 @@
+<header class="primary">
+  <div class="inner primary-container">
+    <nav class="lg-screen">
+      <a routerLink="['']" class="brand grow">{{brand}}</a>
+      <a routerLink="['one']">One</a>
+      <a routerLink="['two']">Two</a>
+      <a routerLink="['three']">Three</a>
+    </nav>
+    <nav class="sm-screen">
+      <a routerLink="['']" class="brand grow">{{brand}}</a>
+      <button type="button" (click)="togglePopup()">
+        <img src="../../../../assets/icons/menu.png" alt="menu icon"/>
+      </button>
+    </nav>  
+    <div class="popup" *ngIf="popupOpen">
+      <nav class="m-2">
+        <span class="flex p-2 mx-2 border-b-2 w-full">
+          <span class="flex-1">Menu</span>
+          <button type="button" class="px-2 bg-slate-50 rounded" (click)="togglePopup()">
+            &times;
+          </button>  
+        </span>
+        <a routerLink="['one']">One</a>
+        <a routerLink="['two']">Two</a>
+        <a routerLink="['three']">Three</a>  
+      </nav>
+    </div>
+  </div>
+</header>

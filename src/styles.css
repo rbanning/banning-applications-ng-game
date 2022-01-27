@@ -1,1 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  width: 100%;
+  @apply font-sans text-lg antialiased text-slate-500;
+}
+body::before {
+  content: '';
+  background-image: url(assets/images/boxes.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0; right: 0;
+  height: 50vh;
+  opacity: 0.35;
+
+  @apply bg-center sm:bg-right-top w-3/5 sm:w-1/2;
+}
+
+section {
+  @apply my-6;
+}
+
+p {
+  @apply my-4;
+}
+
+a {
+  @apply text-rose-400 no-underline;
+}
+
+h1 {
+  @apply text-3xl text-blue-400;
+}
+h2 {
+  @apply text-2xl text-red-700;
+}
+h3 {
+  @apply text-xl text-blue-200 uppercase mb-2 mt-4;
+}
+
+.primary-container {
+  @apply container mx-auto my-2 relative overflow-hidden;
+}
+
+pre {
+  @apply overflow-auto;
+}
+
+.btn {
+  @apply bg-transparent 
+    hover:bg-blue-500 text-blue-700 
+    font-semibold  
+    hover:text-white 
+    py-2 px-4 border 
+    border-blue-500 hover:border-transparent rounded;
+}
+
+pre, code {
+  @apply font-mono;
+}
+code {
+  @apply inline-block py-1 px-2 bg-slate-100 text-red-800 rounded;
+}
+
+pre.usage {
+  @apply bg-slate-50 border-2 border-blue-300 py-2 px-2;
+}

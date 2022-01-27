@@ -1,0 +1,48 @@
+
+.primary {
+  @apply bg-retro-blue-300 py-2 shadow-md;
+}
+nav {
+  @apply flex items-center;
+}
+.popup nav {
+  @apply flex-col items-end;
+}
+nav a {
+  @apply text-retro-blue-700 no-underline mr-2 px-2 border-b-0 border-retro-blue-600;
+  transition: color 0.3s ease, border 0.5s ease;
+}
+nav a:hover {
+  @apply text-retro-blue-900 border-b-2;
+}
+nav a.brand {
+  @apply px-0 font-bold;
+}
+nav a.brand:hover {
+  @apply border-b-0;
+}
+
+nav button {
+  @apply mr-2;
+  display: inline-block;
+  max-width: 28px;
+  max-height: 28px;
+}
+nav button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+nav.lg-screen {
+  @apply hidden sm:flex;
+}
+nav.sm-screen {
+  @apply flex sm:hidden;
+}
+
+.popup {
+  @apply bg-retro-blue-200 border-2 border-retro-blue-600 fixed;
+  top: 0; right: 0;
+  min-width: 200px;
+}
