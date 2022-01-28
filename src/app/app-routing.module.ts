@@ -17,6 +17,10 @@ const routes: Routes = [
     canActivate: [PageTitleGuard],
     data: { title: 'Oops...'}
   },
+  { 
+    path: 'test', 
+    loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) 
+  },
   {
     path: '**',
     redirectTo: '/404'

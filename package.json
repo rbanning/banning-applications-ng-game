@@ -18,6 +18,7 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "dayjs": "^1.10.7",
     "rxjs": "~7.5.0",
     "tailwindcss": "^3.0.17",
     "tslib": "^2.3.0",

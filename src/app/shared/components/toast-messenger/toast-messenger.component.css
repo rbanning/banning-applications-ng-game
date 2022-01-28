@@ -1,0 +1,52 @@
+.toast {
+  position: fixed;
+  bottom: 2em; right: 2em;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  transform-origin: bottom right;
+}
+
+.toast.loaded {
+  animation: toastUp 0.7s ease forwards;
+}
+
+.theme {
+  @apply p-2 border-2 bg-slate-500 text-white;
+}
+.theme-info {
+  @apply border-blue-600 text-blue-100;
+}
+.theme-success {
+  @apply border-green-600 text-green-100;
+}
+.theme-warning {
+  @apply border-orange-600 text-orange-100;
+}
+.theme-error {
+  @apply border-red-600 text-red-100;
+}
+
+.heading {
+  @apply flex font-bold;
+}
+.heading > .title { 
+  @apply flex-1;
+}
+.heading > button {
+  @apply px-2 text-lg rounded-full bg-slate-50 text-black cursor-pointer;
+}
+.message {
+  @apply my-2;
+}
+
+@keyframes toastUp {
+  from {
+    opacity: 0;
+    transform: scale(0) translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}

@@ -12,7 +12,7 @@ nav a {
   @apply text-retro-blue-700 no-underline mr-2 px-2 border-b-0 border-retro-blue-600;
   transition: color 0.3s ease, border 0.5s ease;
 }
-nav a:hover {
+nav a:hover, nav a.active {
   @apply text-retro-blue-900 border-b-2;
 }
 nav a.brand {

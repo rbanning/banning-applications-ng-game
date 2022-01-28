@@ -1,13 +1,13 @@
 <header class="primary">
   <div class="inner primary-container">
     <nav class="lg-screen">
-      <a routerLink="['']" class="brand grow">{{brand}}</a>
-      <a routerLink="['one']">One</a>
-      <a routerLink="['two']">Two</a>
-      <a routerLink="['three']">Three</a>
+      <a [routerLink]="['']" class="brand grow">{{brand}}</a>
+      <a [routerLink]="['test']" routerLinkActive="active">Test</a>
+      <a [routerLink]="['two']" routerLinkActive="active">Two</a>
+      <a [routerLink]="['three']" routerLinkActive="active">Three</a>
     </nav>
     <nav class="sm-screen">
-      <a routerLink="['']" class="brand grow">{{brand}}</a>
+      <a [routerLink]="['']" class="brand grow">{{brand}}</a>
       <button type="button" (click)="togglePopup()">
         <img src="../../../../assets/icons/menu.png" alt="menu icon"/>
       </button>
@@ -20,9 +20,9 @@
             &times;
           </button>  
         </span>
-        <a routerLink="['one']">One</a>
-        <a routerLink="['two']">Two</a>
-        <a routerLink="['three']">Three</a>  
+        <a [routerLink]="['test']" routerLinkActive="active">Test</a>
+        <a [routerLink]="['two']" routerLinkActive="active">Two</a>
+        <a [routerLink]="['three']" routerLinkActive="active">Three</a>
       </nav>
     </div>
   </div>

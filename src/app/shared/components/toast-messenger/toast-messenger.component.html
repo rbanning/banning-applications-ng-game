@@ -1,0 +1,9 @@
+<div class="toast" [class.loaded]="toastLoaded" *ngIf="toast">
+  <div [class]="'theme theme-' + toast.mode">
+    <div class="heading">
+      <span class="title">{{toast.mode}}</span>
+      <button class="close" (click)="close()">&times;</button>
+    </div>
+    <div class="message">{{toast.text}}</div>
+  </div>
+</div>

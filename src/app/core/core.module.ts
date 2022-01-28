@@ -3,7 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from '../shared/shared.module';
 import { EnsureModuleLoadedOnceGuard } from './ensure-module-loaded-once.guard';
-import { sharedServices } from './services';
+import { RequestTokenInterceptorService, sharedGuards, sharedServices } from './services';
 
 
 
@@ -15,7 +15,13 @@ import { sharedServices } from './services';
     SharedModule
   ],
   providers: [
-    sharedServices
+    sharedServices,
+    sharedGuards,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestTokenInterceptorService,
+      multi: true
+    },
   ]
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {   // Ensure that CoreModule is only loaded into AppModule
