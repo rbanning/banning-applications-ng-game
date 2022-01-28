@@ -21,6 +21,14 @@ const routes: Routes = [
     path: 'test', 
     loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) 
   },
+  { 
+    path: 'auth', 
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule) 
+  },
+  {
+    path: 'home',
+    redirectTo: '/'
+  },
   {
     path: '**',
     redirectTo: '/404'

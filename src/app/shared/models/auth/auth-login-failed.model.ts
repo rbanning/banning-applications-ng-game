@@ -3,10 +3,15 @@ export type AuthLoginFailReason = "invalid" | "lockout" | "not_activated" | "unk
 export class AuthLoginFailed {
   reason: AuthLoginFailReason = "unknown";
   message: string | null = null;
-  constructor(obj: any = null) {
-    if (obj) {
-      this.reason = obj.reason;
-      this.message = obj.message;
+  constructor(obj: any | string = null) {
+    switch (typeof(obj)) {
+      case "string":
+        this.message = obj;
+        break;
+      case "object":
+        this.reason = obj.reason;
+        this.message = obj.message;
+        break;
     }
   }
 }
