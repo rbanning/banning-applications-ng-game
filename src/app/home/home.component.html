@@ -1,5 +1,8 @@
 
-<app-working [show]="true" theme="accent"></app-working>
+<app-working [working$]="working$" theme="accent"></app-working>
+<div class="mb-4">
+  <button class="btn m-2" (click)="toggleWorking()">toggle working</button>
+</div>
 <div class="flex">
   <button class="btn m-2" (click)="addToast('info')">info</button>
   <button class="btn m-2" (click)="addToast('success')">success</button>

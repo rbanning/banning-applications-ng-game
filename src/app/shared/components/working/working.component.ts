@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -8,12 +8,14 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class WorkingComponent implements OnInit, OnDestroy {
   @Input()
-  show: boolean | undefined;
+  show: boolean = false;
   @Input()
   working$: Observable<boolean> | undefined;
 
   @Input()
   theme: 'primary' | 'accent' = 'primary';
+  
+  @HostBinding('style.display') get showWorking() { return this.show ? 'block' : 'none'; }
   
   private subscriptions: Subscription[] = [];
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastService } from '@app/core/services/toast.service';
 import { ToastMode } from '@app/shared/models';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,18 @@ import { ToastMode } from '@app/shared/models';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  private _working = new BehaviorSubject<boolean>(false);
+  working$: Observable<boolean>;
 
-  constructor(private toastService: ToastService) { }
+  constructor(private toastService: ToastService) { 
+    this.working$ = this._working.asObservable();
+  }
 
   ngOnInit(): void {
+  }
+
+  toggleWorking() {
+    this._working.next(!this._working.value);
   }
 
   addToast(mode: ToastMode) {
