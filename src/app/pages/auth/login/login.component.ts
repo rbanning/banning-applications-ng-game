@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+  }
+
+  getCtrl(key: string): FormControl | null {
+    return this.loginForm.get(key) as FormControl;
   }
 
   submitLogin() {

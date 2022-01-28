@@ -1,11 +1,19 @@
 
 <app-working [working$]="working$" theme="accent"></app-working>
-<div class="mb-4">
-  <button class="btn m-2" (click)="toggleWorking()">toggle working</button>
+<div class="flex mb-4">
+  <button class="btn m-2" (click)="toggleWorking()">
+    <app-button-spinner-wrapper 
+      theme="primary"
+      size="md"
+      [working]="working" 
+      [buttonText]="'toggle working'">
+    </app-button-spinner-wrapper>
+  </button>
+
 </div>
 <div class="flex">
-  <button class="btn m-2" (click)="addToast('info')">info</button>
-  <button class="btn m-2" (click)="addToast('success')">success</button>
-  <button class="btn m-2" (click)="addToast('warning')">warning</button>
-  <button class="btn m-2" (click)="addToast('error')">error</button>
+  <button class="btn m-2 btn-primary" (click)="addToast('info')">info</button>
+  <button class="btn m-2 btn-accent" (click)="addToast('success')">success</button>
+  <button class="btn m-2 btn-light" (click)="addToast('warning')">warning</button>
+  <button class="btn m-2 btn-cancel" (click)="addToast('error')">error</button>
 </div>

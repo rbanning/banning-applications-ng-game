@@ -11,6 +11,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
   private _working = new BehaviorSubject<boolean>(false);
   working$: Observable<boolean>;
+  working: boolean = false;
 
   constructor(private toastService: ToastService) { 
     this.working$ = this._working.asObservable();
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   toggleWorking() {
     this._working.next(!this._working.value);
+    this.working = this._working.value;
   }
 
   addToast(mode: ToastMode) {

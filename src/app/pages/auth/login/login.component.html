@@ -1,0 +1,39 @@
+<h1>Logon</h1>
+
+<div class="content" *ngIf="{ working: working$ | async} as obs">
+
+  <form class="a-form" (submit)="submitLogin()" [formGroup]="loginForm">
+    <div class="field">
+      <label position="floating">Email</label>
+      <ion-input placeholder="Email Address" formControlName="email" required></ion-input>
+      <app-input-error [control]="getCtrl('email')"></app-input-error>
+    </div>
+    <div class="field">
+      <label position="floating">Password</label>
+      <ion-input type="password" placeholder="Password" formControlName="password" required></ion-input>
+      <app-input-error [control]="getCtrl('password')"></app-input-error>
+    </div>
+
+    <div *ngIf="loginError" class="error-message">
+      {{ loginError.message }}
+    </div>
+
+    <div class="actions">
+      <div>
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || (obs.working)">
+          <app-button-spinner-wrapper [working]="obs.working === true" [buttonText]="'Login'" style="width: 100%;">
+          </app-button-spinner-wrapper>
+        </button>
+        <button [routerLink]="['']" class="btn btn-cancel">
+          Cancel
+        </button>
+      </div>
+      <div>
+        <button class="btn font-sm">
+          FORGOT PASSWORD
+        </button>
+      </div>
+    </div>
+  </form>
+
+</div>
