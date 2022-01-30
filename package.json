@@ -5,7 +5,7 @@
     "ng": "ng",
     "config": "ts-node config-env.ts",
     "start": "npm run config && ng serve",
-    "build": "npm run config && ng build --prod",
+    "build": "npm run config && ng build",
     "watch": "npm run config && ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
