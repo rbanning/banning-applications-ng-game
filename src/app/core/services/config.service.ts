@@ -7,9 +7,10 @@ export class ConfigService {
   private _config: IConfig;
 
   constructor() {
-    this._config = {...environment};
+    this._config = {...environment} as IConfig;
   }
 
+  
   keys(): string[] {
     return Object.keys(this._config);
   }

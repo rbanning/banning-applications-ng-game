@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '@app/core';
 import { ToastService } from '@app/core/services/toast.service';
 import { ToastMode } from '@app/shared/models';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -13,11 +14,16 @@ export class HomeComponent implements OnInit {
   working$: Observable<boolean>;
   working: boolean = false;
 
-  constructor(private toastService: ToastService) { 
+  constructor(
+    private configService: ConfigService,
+    private toastService: ToastService
+    ) { 
     this.working$ = this._working.asObservable();
   }
 
   ngOnInit(): void {
+    const config = this.configService.getAll();
+    console.log("DEBUG: Config", config);
   }
 
   toggleWorking() {

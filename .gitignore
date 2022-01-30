@@ -43,3 +43,9 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+
+# Secrets (config)
+.env
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+
