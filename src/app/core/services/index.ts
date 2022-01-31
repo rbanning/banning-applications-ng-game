@@ -27,3 +27,6 @@ export * from './storage.service';
 export * from './auth.service';
 export * from './page-title.guard';
 export * from './auth.guard';
+
+export * from './mocks';  //note: these are not injectable services and are not included in sharedServices
+
