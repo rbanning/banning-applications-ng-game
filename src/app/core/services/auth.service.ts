@@ -9,6 +9,7 @@ import { IAuth, Auth, IUser, AuthLoginFailed } from "@app/shared/models";
 import { WorkingService } from "@app/shared/models";
 
 import * as common from '@app/shared/common';
+import { MockAuthService, MockService } from ".";
 
 export type AuthStoreResult = IAuth | null;
 
@@ -26,6 +27,13 @@ export class AuthService extends WorkingService {
   ) {
     super();
     this.BASE_URL = this.config.getAll().auth_url || '';
+
+    //use the mock service
+    const mock = new MockService<AuthService>(
+      "AuthService",
+      AuthService, this, MockAuthService,
+      ["name@domain.com"]
+    );
 
     //see if the authentication creds are stored in local storage
     this.storage.get(this.AUTH_KEY)
