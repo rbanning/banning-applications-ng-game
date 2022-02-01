@@ -10,7 +10,8 @@ export class ConfigService {
   constructor() {
     this._config = {...environment} as IConfig;
     const mock = new MockService<ConfigService>(
-      ConfigService, this, MockConfigService, ["rob"]);
+      "ConfigService",
+      ConfigService, this, MockConfigService);
   }
 
   

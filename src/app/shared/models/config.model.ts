@@ -8,5 +8,4 @@ export interface IConfig {
   google_api?: string;
   platform?: string;
   production?: boolean;
-  mock?: boolean;
 }

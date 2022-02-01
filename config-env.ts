@@ -21,8 +21,7 @@ const buildConfig = (production: boolean) => {
         auth_url: '${process.env["AUTH_URL"]}',
         auth_registration_code: '${process.env["AUTH_REGISTRATION_CODE"]}',
         platform: '${process.env["PLATFORM"]}',
-        production: ${process.env["PRODUCTION"] || production},
-        mock: ${process.env["MOCK"] === 'true' || false}
+        production: ${process.env["PRODUCTION"] || production}
      };
      `;
 };
