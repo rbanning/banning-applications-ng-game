@@ -32,7 +32,7 @@ export class AuthService extends WorkingService {
     const mock = new MockService<AuthService>(
       "AuthService",
       AuthService, this, MockAuthService,
-      ["name@domain.com"]
+      ["mock@domain.com"]
     );
 
     //see if the authentication creds are stored in local storage

@@ -31,9 +31,6 @@ export class FormFieldDirective implements OnInit {
     }
 
     const html = this.elementRef.nativeElement.innerHTML;
-
-    console.log("DEBUG: appFormField", {html, elementRef: this.elementRef, input: this.input, enabled: this.enabled});
-
   }
 
   setupLabel() {
