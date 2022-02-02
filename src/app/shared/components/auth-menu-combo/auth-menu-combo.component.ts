@@ -37,21 +37,21 @@ export class AuthMenuComboComponent implements OnInit {
   authPopupMenuItems: IPopMenuItem[] = [
     {
       text: "Profile",
-      action: ['auth']
+      action: ['/auth']
     },
     {
       text: "Logout",
-      action: ['auth', 'logout']
+      action: ['/auth', 'logout']
     }
   ];
   noAuthPopupMenuItems: IPopMenuItem[] = [
     {
       text: "Login",
-      action: ['auth', 'login']
+      action: ['/auth', 'login']
     },
     {
       text: "Register",
-      action: ['auth', 'register']
+      action: ['/auth', 'register']
     }
   ];
 }
