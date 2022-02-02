@@ -57,7 +57,6 @@ export class MockAuthService {
       if (this.mockIsAuthenticated()) {
         const auth = this.mockCreateAuthResult();
         this.setAuth(auth);
-        console.log("DEBUG: Auth Refreshed", {auth});
         return of(auth.user);
       } else {
         return of(null);  //not authenticated so no need to try to authenticate
