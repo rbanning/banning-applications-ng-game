@@ -17,7 +17,7 @@ export const sharedComponents = [
   SpinnerComponent,
   ButtonSpinnerWrapperComponent,
   PopupMenuComponent,
-  AuthMenuComboComponent
+  AuthMenuComboComponent,
 ];
 
 export * from './site-header/site-header.component';

@@ -59,6 +59,10 @@ pre {
 
   transition: background-color .7s ease;
 }
+.btn:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+
 .btn-primary {
   @apply bg-retro-blue-500
     hover:bg-retro-blue-800
@@ -94,4 +98,36 @@ code {
 
 pre.usage {
   @apply bg-slate-50 border-2 border-blue-300 py-2 px-2;
+}
+
+
+.a-form {
+  @apply my-4;
+}
+.field {
+  @apply my-4;
+}
+.field label {
+  @apply block text-sm text-slate-400;
+}
+.field input {
+  @apply bg-transparent border-0 border-b-2 border-slate-400 rounded pt-4 pb-2 px-4;
+}
+
+.field.collapse label {
+  transform: translate(0.5em, 0.5em);
+  @apply text-slate-700;
+}
+.field.collapse input {
+  @apply h-0 py-0;
+}
+.field:not(.collapse) input {
+  @apply bg-slate-100;
+}
+.field input:focus {
+  @apply outline-1 outline-slate-500;
+}
+
+input.ng-invalid:not(.ng-pristine) {
+  @apply bg-red-100;
 }

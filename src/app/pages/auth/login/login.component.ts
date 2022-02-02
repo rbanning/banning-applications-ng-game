@@ -70,7 +70,8 @@ export class LoginComponent implements OnInit {
   private buildForm() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(appValidators.regex.email)]],
-      password:[ '', [Validators.required]]
+      password:[ '', [Validators.required]],
+      code: ['', [Validators.required]]
     });
   }
 }

@@ -1,17 +1,26 @@
 <h1>Logon</h1>
 
-<div class="content" *ngIf="{ working: working$ | async} as obs">
+<div class="content" *ngIf="{ working: working$ | async } as obs">
 
-  <form class="a-form" (submit)="submitLogin()" [formGroup]="loginForm">
-    <div class="field">
-      <label position="floating">Email</label>
-      <ion-input placeholder="Email Address" formControlName="email" required></ion-input>
+  <form class="a-form" 
+    (submit)="submitLogin()" 
+    [formGroup]="loginForm">
+    <div class="field" appFormField>
+      <label>Email</label>
+      <input placeholder="Email Address" formControlName="email" required/>
       <app-input-error [control]="getCtrl('email')"></app-input-error>
     </div>
-    <div class="field">
-      <label position="floating">Password</label>
-      <ion-input type="password" placeholder="Password" formControlName="password" required></ion-input>
+
+    <div class="field" appFormField>
+      <label>Password</label>
+      <input type="password" placeholder="Password" formControlName="password" required/>
       <app-input-error [control]="getCtrl('password')"></app-input-error>
+    </div>
+
+    <div class="field" appFormField>
+      <label>Code</label>
+      <input type="password" placeholder="Code" formControlName="code" required/>
+      <app-input-error [control]="getCtrl('code')"></app-input-error>
     </div>
 
     <div *ngIf="loginError" class="error-message">

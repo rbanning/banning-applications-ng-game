@@ -72,22 +72,27 @@ export class PopupMenuComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    event.preventDefault();
+    if (!this.visible) { return; }
+
     switch(event.code) {
       case KEY_CODE.DOWN_ARROW:
         this.selected = Math.min(this.selected + 1, this.items.length - 1);
+        event.preventDefault();
         break;
       case KEY_CODE.UP_ARROW:
         this.selected = Math.max(this.selected - 1, 0);
+        event.preventDefault();
         break;
       case KEY_CODE.RETURN:
         if (this.selected >= 0 && this.selected < this.items.length) {
           this.act(this.itemsEnhanced[this.selected]);
+          event.preventDefault();
         }
         console.log("TODO: perform the selected item's action", { selected: this.selected, item: this.items[this.selected]});
         break;
       case KEY_CODE.ESC:
         this.visible = false;
+        event.preventDefault();
         break;
     }
   }
