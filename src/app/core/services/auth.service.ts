@@ -9,7 +9,7 @@ import { IAuth, Auth, IUser, AuthLoginFailed } from "@app/shared/models";
 import { WorkingService } from "@app/shared/models";
 
 import * as common from '@app/shared/common';
-import { MockAuthService, MockService } from ".";
+import { MockAuthService, MockService } from "./mocks";
 
 export type AuthStoreResult = IAuth | null;
 

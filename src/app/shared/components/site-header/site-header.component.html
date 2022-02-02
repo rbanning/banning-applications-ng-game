@@ -5,11 +5,12 @@
       <a [routerLink]="['test']" routerLinkActive="active">Test</a>
       <a [routerLink]="['two']" routerLinkActive="active">Two</a>
       <a [routerLink]="['three']" routerLinkActive="active">Three</a>
+      <app-auth-menu-combo></app-auth-menu-combo>
     </nav>
     <nav class="sm-screen">
       <a [routerLink]="['']" class="brand grow">{{brand}}</a>
       <button type="button" (click)="togglePopup()">
-        <img src="../../../../assets/icons/menu.png" alt="menu icon"/>
+        <img src="./assets/icons/menu.png" alt="menu icon"/>
       </button>
     </nav>  
     <div class="popup" *ngIf="popupOpen">

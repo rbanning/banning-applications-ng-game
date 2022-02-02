@@ -1,0 +1,9 @@
+<div class="title">{{title}}</div>
+<div class="menu" *ngIf="items">
+  <ng-container *ngFor="let item of itemsEnhanced; let i = index">
+    <span class="deactivate" *ngIf="item.deactivate">{{item.text}}</span>
+    <a 
+      (click)="act(item)" 
+      [class.selected]="selected === i">{{item.text}}</a>
+  </ng-container>
+</div>

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { sharedComponents } from './components';
+import { PopupMenuComponent } from './components/popup-menu/popup-menu.component';
+import { AuthMenuComboComponent } from './components/auth-menu-combo/auth-menu-combo.component';
 
 
 
@@ -10,6 +12,8 @@ import { sharedComponents } from './components';
   declarations: [
     // pipes,
     sharedComponents,
+    PopupMenuComponent,
+    AuthMenuComboComponent,
     // sharedDirectives,
     // IsEmptyPipe,
   ],

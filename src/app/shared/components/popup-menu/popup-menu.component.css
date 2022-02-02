@@ -1,0 +1,23 @@
+:host {
+  position: fixed;
+  display: none;
+  width: auto;
+  @apply border-2 p-2 bg-white border-gray-200;
+}
+:host a { @apply text-gray-500 cursor-pointer block px-3 py-2; }
+:host a.selected { @apply border-2 border-slate-200 bg-slate-100; }
+:host.visible { display: block; }
+
+:host.primary { @apply bg-retro-blue-300 border-retro-blue-400; }
+:host.primary a { @apply text-retro-blue-700; }
+:host.primary .deactivate { @apply text-retro-blue-500; }
+:host.accent { @apply bg-orange-100 border-orange-300;  }
+:host.accent a { @apply text-orange-700; }
+:host.accent .deactivate { @apply text-orange-300; }
+:host.light { @apply bg-slate-200 border-slate-400; }
+:host.light a { @apply text-slate-500; }
+:host.light .deactivate { @apply text-slate-300; }
+
+.title { 
+  @apply font-bold;
+}
