@@ -28,20 +28,18 @@
     </div>
 
     <div class="actions">
-      <div>
-        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || (obs.working)">
-          <app-button-spinner-wrapper [working]="obs.working === true" [buttonText]="'Login'" style="width: 100%;">
-          </app-button-spinner-wrapper>
-        </button>
-        <button [routerLink]="['']" class="btn btn-cancel">
-          Cancel
-        </button>
-      </div>
-      <div>
-        <button class="btn font-sm">
-          FORGOT PASSWORD
-        </button>
-      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || (obs.working)">
+        <app-button-spinner-wrapper [working]="obs.working === true" [buttonText]="'Login'" style="width: 100%;">
+        </app-button-spinner-wrapper>
+      </button>
+      <button [routerLink]="['']" class="btn btn-cancel">
+        Cancel
+      </button>
+    </div>
+    <div class="actions">
+      <button class="btn btn-sm">
+        FORGOT PASSWORD
+      </button>
     </div>
   </form>
 

@@ -1,4 +1,9 @@
-<div class="title">{{title}}</div>
+<div class="title">
+  <button type="button" class="px-2 mr-2 bg-slate-50 rounded" (click)="close()">
+    &times;
+  </button>  
+  {{title}}
+</div>
 <div class="menu" *ngIf="items">
   <ng-container *ngFor="let item of itemsEnhanced; let i = index">
     <span class="deactivate" *ngIf="item.deactivate">{{item.text}}</span>

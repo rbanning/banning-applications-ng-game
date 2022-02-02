@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AuthService, AuthStoreResult } from '@app/core';
-import { IPopMenuItem } from '..';
+import { IPopMenuItem, IPopMenuItemEnhanced } from '..';
+
+export type TriggerMode = "text" | "icon";
 
 @Component({
   selector: 'app-auth-menu-combo',
@@ -13,6 +15,12 @@ export class AuthMenuComboComponent implements OnInit {
   auth$: Observable<AuthStoreResult>;
   showMenu: boolean = false;
 
+  @Input()
+  mode: TriggerMode = 'icon';
+
+  @Output()
+  activated = new EventEmitter<IPopMenuItemEnhanced>();
+
   constructor(
     private authService: AuthService
   ) { 
@@ -20,6 +28,10 @@ export class AuthMenuComboComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  activate(item: IPopMenuItemEnhanced) {
+    this.activated.emit(item);  //pass along
   }
 
   authPopupMenuItems: IPopMenuItem[] = [

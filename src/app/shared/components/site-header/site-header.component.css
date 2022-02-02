@@ -45,4 +45,5 @@ nav.sm-screen {
   @apply bg-retro-blue-200 border-2 border-retro-blue-600 fixed;
   top: 0; right: 0;
   min-width: 200px;
+  z-index: 1000;
 }

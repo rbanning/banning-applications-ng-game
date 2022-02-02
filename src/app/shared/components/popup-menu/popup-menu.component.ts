@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 export enum KEY_CODE {
@@ -70,6 +70,9 @@ export class PopupMenuComponent implements OnInit {
   @Input()
   deltaY: number = 0;
 
+  @Output()
+  activated = new EventEmitter<IPopMenuItemEnhanced>();
+
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (!this.visible) { return; }
@@ -111,12 +114,16 @@ export class PopupMenuComponent implements OnInit {
     return `${this.top}px`; 
   }
 
-  @HostBinding('style.left') get topLeft() { 
-    return `${this.left}px`; 
+  @HostBinding('style.left') get leftPx() { 
+    return this.left === null ? 'auto' : `${this.left}px`; 
+  }
+  @HostBinding('style.right') get rightPx() { 
+    return this.right === null ? 'auto' : `${this.right}px`; 
   }
 
   private top: number = 0;
-  private left: number = 0;
+  private left: number | null = 0;
+  private right: number | null = null;
 
   constructor(
     private elementRef: ElementRef,
@@ -128,7 +135,8 @@ export class PopupMenuComponent implements OnInit {
 
   act(item: IPopMenuItemEnhanced) {
     this.close();
-    console.log("ACT", {item});
+    this.activated.next(item);
+
     if (item?.href) { 
       window.location.href = item.href;
     } else if (item?.routerLink) {
@@ -138,10 +146,16 @@ export class PopupMenuComponent implements OnInit {
     }
   }
   open(event: MouseEvent) {
-    console.log("DEBUG: react", {event});
     this.top = event.y;
+    this.right = null;
+    
+    //NOTE: this.elementRef.nativeElement.offsetWidth is 0 because element is not visible
     this.left = Math.max(event.x - this.elementRef.nativeElement.offsetWidth, 0);
     
+    if (this.left + this.width > window.document.body.offsetWidth) {
+      this.left = null;
+      this.right = 5;
+    }
     this.toggle(true);
   }
 
