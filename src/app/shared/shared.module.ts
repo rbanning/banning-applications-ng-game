@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { sharedComponents } from './components';
+import { sharedDirectives } from './directives';
 
 
 
@@ -10,7 +11,7 @@ import { sharedComponents } from './components';
   declarations: [
     // pipes,
     sharedComponents,
-    // sharedDirectives,
+    sharedDirectives,
     // IsEmptyPipe,
   ],
   imports: [
@@ -27,7 +28,7 @@ import { sharedComponents } from './components';
     RouterModule,
     // pipes,
     sharedComponents,
-    // sharedDirectives,
+    sharedDirectives,
   ]
 })
 export class SharedModule { }

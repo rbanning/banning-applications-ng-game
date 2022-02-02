@@ -5,24 +5,27 @@
       <a [routerLink]="['test']" routerLinkActive="active">Test</a>
       <a [routerLink]="['two']" routerLinkActive="active">Two</a>
       <a [routerLink]="['three']" routerLinkActive="active">Three</a>
+      <app-auth-menu-combo></app-auth-menu-combo>
     </nav>
     <nav class="sm-screen">
       <a [routerLink]="['']" class="brand grow">{{brand}}</a>
       <button type="button" (click)="togglePopup()">
-        <img src="../../../../assets/icons/menu.png" alt="menu icon"/>
+        <img src="./assets/icons/menu.png" alt="menu icon"/>
       </button>
     </nav>  
     <div class="popup" *ngIf="popupOpen">
       <nav class="m-2">
         <span class="flex p-2 mx-2 border-b-2 w-full">
-          <span class="flex-1">Menu</span>
           <button type="button" class="px-2 bg-slate-50 rounded" (click)="togglePopup()">
             &times;
           </button>  
+          <span class="flex-1">Menu</span>
         </span>
-        <a [routerLink]="['test']" routerLinkActive="active">Test</a>
-        <a [routerLink]="['two']" routerLinkActive="active">Two</a>
-        <a [routerLink]="['three']" routerLinkActive="active">Three</a>
+        <a (click)="togglePopup()" [routerLink]="['test']" routerLinkActive="active">Test</a>
+        <a (click)="togglePopup()" [routerLink]="['two']" routerLinkActive="active">Two</a>
+        <a (click)="togglePopup()" [routerLink]="['three']" routerLinkActive="active">Three</a>
+        <div class="divider"></div>
+        <app-auth-menu-combo mode="text" (activated)="togglePopup()"></app-auth-menu-combo>
       </nav>
     </div>
   </div>

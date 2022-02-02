@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IConfig } from '@app/shared/models';
 import { environment } from 'src/environments/environment';
+import { MockService, MockConfigService } from './mocks';
 
 @Injectable()
 export class ConfigService {
@@ -8,6 +9,9 @@ export class ConfigService {
 
   constructor() {
     this._config = {...environment} as IConfig;
+    const mock = new MockService<ConfigService>(
+      "ConfigService",
+      ConfigService, this, MockConfigService);
   }
 
   

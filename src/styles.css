@@ -49,6 +49,10 @@ pre {
   @apply overflow-auto;
 }
 
+.divider {
+  @apply block h-1 w-full my-2 bg-slate-400;
+}
+
 .btn {
   @apply bg-transparent 
     hover:bg-retro-blue-500 text-retro-blue-800 
@@ -58,6 +62,15 @@ pre {
     border-retro-blue-500 hover:border-transparent rounded;
 
   transition: background-color .7s ease;
+}
+.btn:disabled {
+  @apply opacity-40 cursor-not-allowed;
+}
+.btn-text {
+  @apply border-0 py-1 px-2;
+}
+.btn-sm {
+  @apply text-sm py-1 px-2;
 }
 .btn-primary {
   @apply bg-retro-blue-500
@@ -94,4 +107,55 @@ code {
 
 pre.usage {
   @apply bg-slate-50 border-2 border-blue-300 py-2 px-2;
+}
+
+
+.a-form {
+  @apply my-4;
+}
+.field {
+  @apply my-4 w-full max-w-md;
+}
+.field.full {
+  @apply max-w-max;
+}
+.field > * { 
+  @apply block w-full;
+}
+.field label {
+  @apply text-sm text-slate-400 cursor-pointer;
+}
+.field input {
+  @apply bg-transparent border-0 border-b-2 border-slate-400 rounded pt-4 pb-2 px-4;
+}
+
+.field.collapse label {
+  transform: translate(0.5em, 0.5em);
+  @apply text-slate-700 py-4;
+}
+.field.collapse input {
+  @apply h-0 py-0;
+}
+.field:not(.collapse) input {
+  @apply bg-slate-100;
+}
+.field input:focus {
+  @apply outline-1 outline-slate-500;
+}
+
+input.ng-invalid:not(.ng-pristine) {
+  @apply bg-red-100;
+}
+
+.actions {
+  @apply w-full my-6 flex justify-start items-center;
+}
+.actions.right {
+  @apply justify-end;
+}
+.actions.center {
+  @apply justify-center;
+}
+.actions > * {
+  @apply mx-4;
 }

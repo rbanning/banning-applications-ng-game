@@ -1,0 +1,27 @@
+<span class="wrapper" *ngIf="auth$ | async as auth; else notAuth">
+  <ng-container *ngIf="auth.isAuthenticated(); else notAuth">
+    <button [class]="'btn btn-' + mode" (click)="popupAuthenticated.open($event)">
+      <img src="./assets/icons/profile.png" *ngIf="mode === 'icon'" />
+      <span *ngIf="mode === 'text'">{{auth.user?.name}}</span>
+    </button>  
+    <app-popup-menu 
+      #popupAuthenticated
+      [items]="authPopupMenuItems" 
+      [title]="auth.user?.name || ''"
+      [visible]="showMenu"
+      (activated)="activate($event)"></app-popup-menu>
+  </ng-container>
+</span>
+
+<ng-template #notAuth>
+  <button [class]="'btn btn-' + mode" (click)="popupUnauthenticated.open($event)">
+    <img src="./assets/icons/login.png" *ngIf="mode === 'icon'" />
+    <span *ngIf="mode === 'text'">Sign In</span>
+  </button>  
+  <app-popup-menu 
+    #popupUnauthenticated
+    [items]="noAuthPopupMenuItems" 
+    [title]="'Authentication'"
+    [visible]="showMenu"
+    (activated)="activate($event)"></app-popup-menu>
+</ng-template>
