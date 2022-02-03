@@ -1,0 +1,28 @@
+:host {
+  position: fixed;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  z-index: 2000;
+
+  display: none; 
+  @apply sm:p-2 md:p-6 overflow-hidden;
+}
+:host.open {
+  display: block;
+}
+:host.backdrop {
+  @apply bg-slate-200;
+}
+
+.wrapper {
+  @apply flex justify-center items-center w-full h-full;
+}
+.dialog {
+  @apply bg-slate-50 border-2 border-slate-400 shadow-sm;
+}
+.dialog .header {
+  @apply py-2 px-2 bg-retro-blue-600 text-slate-50 flex justify-between;
+}
+.dialog .body {
+  @apply my-4 mx-2;
+}

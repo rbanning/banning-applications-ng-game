@@ -1,0 +1,42 @@
+<h1>The Game</h1>
+
+<div class="field" appFormField>
+  <label>Search</label>
+  <input type="text" #query id="query">
+</div>
+<div class="actions">
+  <button class="btn" (click)="search(query.value)">GO</button>
+</div>
+
+<app-working [working$]="working$"></app-working>
+<hr>
+
+<ng-container *ngIf="{ results: results$ | async, selected: selected$ | async } as obs">
+
+  <div class="wrapper" *ngIf="obs.results">
+    <ng-container *ngIf="!error; else showError">
+      <h3>{{obs.results.total}} Results for <code>{{obs.results.query}}</code></h3>
+      <div class="flex flex-wrap">
+        <app-game-photo 
+          [photo]="photo" 
+          class="my-2 mx-4 border-2 cursor-pointer"
+          (tap)="showDetails($event)"
+          *ngFor="let photo of obs.results.results">
+        </app-game-photo>
+      </div>  
+    </ng-container>
+  </div>
+  <app-modal [open]="!!obs.selected" [title]="obs.selected?.id" (dismissed)="hideDetails()" >
+    <app-game-photo [photo]="obs.selected" size="small" [detailed]="true"></app-game-photo>
+  </app-modal>
+
+</ng-container>
+
+<ng-template #showError>
+  <div class="error">
+    <strong>Oops!</strong>
+    <br>
+    {{error}}
+  </div>
+</ng-template>
+

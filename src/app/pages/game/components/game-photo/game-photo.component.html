@@ -1,0 +1,33 @@
+<div class="wrapper" *ngIf="photo; else noPhoto" (click)="handleClick($event)">
+  <img [src]="photo?.getUrl(size, sizedFallback)" [alt]="photo.alt" class="block"/>
+  <cite class="block text-sm">
+    by: 
+    <span class="font-semibold">
+      {{photo?.photographer?.name || 'un-sourced'}}
+    </span>
+    <span class="px-4" *ngIf="photo?.photographer?.location && detailed">
+      (located in {{photo?.photographer?.location}})
+    </span>
+  </cite>
+  <div class="text-sm" *ngIf="detailed">
+    <p>
+      {{photo?.description}}
+    </p>
+    <p *ngIf="photo?.location">
+      <span class="font-semibold">location: </span>
+      {{photo?.location?.city}}, {{photo?.location?.country}}
+    </p>
+    <p *ngIf="photo?.tags" class="flex flex-wrap items-center">
+      <span class="font-semibold">tags:</span>
+      <span class="my-2 mx-2 py-1 px-1 border-2 border-slate-200" *ngFor="let tag of photo.tags">{{tag}}</span>
+    </p>
+  </div>
+  
+</div>
+
+<ng-template #noPhoto>
+  <div class="error">no photo</div>
+</ng-template>
+<ng-template #noPhotographer>
+  <span class="error">un-sourced</span>
+</ng-template>

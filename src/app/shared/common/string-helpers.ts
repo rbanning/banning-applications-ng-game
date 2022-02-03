@@ -81,6 +81,29 @@ export function randomString(length: number, inclDigits: boolean = false): strin
   return ret.join('');
 }
 
+export function getListDelim(text: string, possible: string[] = ['|', ',']): string | null {
+  let delim: string | null = null;
+  if (text && possible) {
+    for(let i=0; i<possible.length && !delim; i++) {
+      if (text.includes(possible[i])) {
+        delim = possible[i];
+      }
+    }
+  }
+
+  //done
+  return delim;
+}
+
+export function toList(text: string, delim: string | null = null): (string | null)[] {
+  delim = delim || getListDelim(text);
+  if (delim) {
+    return delim.split(delim).map(m => m?.trim());
+  }
+  //else
+  return [text];
+}
+
 export function generateEntityCode(text: string): string {
   if (text) {
     return text.trim().toLocaleLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9\-\_]/gi, '');

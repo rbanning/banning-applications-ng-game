@@ -4,12 +4,14 @@ import { ConfigService } from "./config.service";
 import { PageTitleGuard } from "./page-title.guard";
 import { StorageService } from "./storage.service";
 import { ToastService } from "./toast.service";
+import { UnsplashService } from "./unsplash.service";
 
 export const sharedServices = [
   ConfigService,
   StorageService,
   ToastService,
-  AuthService
+  AuthService,
+  UnsplashService
 ];
 
 
@@ -28,6 +30,7 @@ export * from './auth.service';
 export * from './page-title.guard';
 export * from './auth.guard';
 export * from './toast.service';
+export * from './unsplash.service';
 
 //not including mocks in the base services index.  
 //they should be access directly from /mocks.

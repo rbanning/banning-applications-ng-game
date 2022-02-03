@@ -29,6 +29,9 @@ const routes: Routes = [
     path: 'home',
     redirectTo: '/'
   },
+  { path: 'game', 
+    loadChildren: () => import('./pages/game/game.module').then(m => m.GameModule) 
+  },
   {
     path: '**',
     redirectTo: '/404'

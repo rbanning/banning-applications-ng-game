@@ -18,6 +18,7 @@ const buildConfig = (production: boolean) => {
         os_url: '${process.env["OS_URL"]}',
         os_secret: '${process.env["OS_SECRET"]}',
         google_api: '${process.env["GOOGLE_API"]}',
+        unsplash_api: '${process.env["UNSPLASH_API"]}',
         auth_url: '${process.env["AUTH_URL"]}',
         auth_registration_code: '${process.env["AUTH_REGISTRATION_CODE"]}',
         platform: '${process.env["PLATFORM"]}',

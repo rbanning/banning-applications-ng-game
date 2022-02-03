@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <div class="dialog">
+    <div class="header">
+      <span class="title">{{title}}</span>
+      <button class="btn btn-sm btn-light btn-transparent rounded-lg" (click)="close()">&times;</button>
+    </div>
+    <div class="body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

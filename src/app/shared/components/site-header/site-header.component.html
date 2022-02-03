@@ -2,9 +2,8 @@
   <div class="inner primary-container">
     <nav class="lg-screen">
       <a [routerLink]="['']" class="brand grow">{{brand}}</a>
-      <a [routerLink]="['test']" routerLinkActive="active">Test</a>
-      <a [routerLink]="['two']" routerLinkActive="active">Two</a>
-      <a [routerLink]="['three']" routerLinkActive="active">Three</a>
+      <a [routerLink]="['game']" routerLinkActive="active">The Game</a>
+      <a [routerLink]="['about']" routerLinkActive="active">About</a>
       <app-auth-menu-combo></app-auth-menu-combo>
     </nav>
     <nav class="sm-screen">
@@ -21,9 +20,8 @@
           </button>  
           <span class="flex-1">Menu</span>
         </span>
-        <a (click)="togglePopup()" [routerLink]="['test']" routerLinkActive="active">Test</a>
-        <a (click)="togglePopup()" [routerLink]="['two']" routerLinkActive="active">Two</a>
-        <a (click)="togglePopup()" [routerLink]="['three']" routerLinkActive="active">Three</a>
+        <a (click)="togglePopup()" [routerLink]="['game']" routerLinkActive="active">The Game</a>
+        <a (click)="togglePopup()" [routerLink]="['about']" routerLinkActive="active">About</a>
         <div class="divider"></div>
         <app-auth-menu-combo mode="text" (activated)="togglePopup()"></app-auth-menu-combo>
       </nav>

@@ -6,6 +6,7 @@ export interface IConfig {
   auth_url?: string;
   auth_registration_code?: string;
   google_api?: string;
+  unsplash_api?: string;
   platform?: string;
   production?: boolean;
 }
