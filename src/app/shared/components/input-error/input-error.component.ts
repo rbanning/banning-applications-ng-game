@@ -62,6 +62,8 @@ export class InputErrorComponent implements OnInit {
             case "totalcharsmax":
               if (typeof(error.max) === 'number') { return `list cannot have more than ${error.max} characters`; }
               return "list is too long";
+            case "password":
+              return error || "invalid - please check that the password meets our security requirements";
             default:
               return "invalid - please check your input";
             

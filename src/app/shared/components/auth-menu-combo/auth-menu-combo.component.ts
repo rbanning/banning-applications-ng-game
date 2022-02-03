@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AuthService, AuthStoreResult } from '@app/core';
-import { IPopMenuItem, IPopMenuItemEnhanced } from '..';
+import { IPopMenuItem, IPopMenuItemEnhanced } from '../popup-menu/popup-menu.component';
 
 export type TriggerMode = "text" | "icon";
 

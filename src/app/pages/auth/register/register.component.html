@@ -1,11 +1,11 @@
-<h1>Logon</h1>
+<h1>Register</h1>
 
 <div class="content" *ngIf="{ working: working$ | async } as obs">
   <app-working [show]="obs.working === true" theme="accent"></app-working>
 
   <form class="a-form" 
-    (submit)="submitLogin()" 
-    [formGroup]="loginForm">
+    (submit)="submit()" 
+    [formGroup]="registerForm">
     <div class="field" appFormField>
       <label>Email</label>
       <input placeholder="Email Address" formControlName="email" required/>
@@ -18,25 +18,17 @@
       <app-input-error [control]="getCtrl('password')"></app-input-error>
     </div>
 
-    <div *ngIf="loginError" class="error-message">
-      {{ loginError.message }}
+    <div *ngIf="registerError" class="error-message">
+      {{ registerError }}
     </div>
 
     <div class="actions">
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || (obs.working)">
-        <app-button-spinner-wrapper [working]="obs.working === true" [buttonText]="'Login'" style="width: 100%;">
+      <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid || (obs.working)">
+        <app-button-spinner-wrapper [working]="obs.working === true" [buttonText]="'Register'" style="width: 100%;">
         </app-button-spinner-wrapper>
       </button>
-      <button [routerLink]="['']" class="btn btn-cancel">
+      <button [routerLink]="['/']" class="btn btn-cancel">
         Cancel
-      </button>
-    </div>
-    <div class="actions column">
-      <button [routerLink]="['/auth','forgot']" class="btn btn-sm">
-        FORGOT PASSWORD
-      </button>
-      <button [routerLink]="['/auth','register']" class="btn btn-sm">
-        CREATE ACCOUNT
       </button>
     </div>
   </form>

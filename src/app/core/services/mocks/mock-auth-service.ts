@@ -1,9 +1,13 @@
 import { BehaviorSubject, interval, Observable, of, switchMap, throwError } from "rxjs";
 
 import { Auth, IAuth, IUser, User } from "@app/shared/models";
-import * as dayjs from "dayjs";
 import { AuthStoreResult } from "../auth.service";
 import { StorageService } from "../storage.service";
+
+import { mock_names } from "./mock-names";
+
+import * as dayjs from "dayjs";
+import * as common from "@app/shared/common";
 
 export const defaultMockUser: IUser = new User({
   id: "0000",
@@ -12,6 +16,8 @@ export const defaultMockUser: IUser = new User({
   phone: "222-333-4444",
   role: "viewer",
 });
+
+
 
 export class MockAuthService {
   public readonly mockToken: string = btoa("mock-token");
@@ -23,23 +29,19 @@ export class MockAuthService {
   AUTH_KEY: string = 'mock-auth';
 
   constructor(
-    private _mockEmail: string, 
-    private _mockPassword: string | null = null,
     private _mockUser: IUser | null = null,
     private _mockExpiresInHours: number = 24 
     ) { 
       this._mockUser = new User({
         ...defaultMockUser,
-        email: _mockEmail,
         ..._mockUser
       });
     }
 
     login(email: string, password: string): Observable<IUser | null> {
-      if (email.toLocaleLowerCase() === this._mockEmail.toLocaleLowerCase() 
-          && (!this._mockPassword || password === this._mockPassword)) {
-
-            const auth = this.mockCreateAuthResult();
+      const regex = new RegExp(common.appValidators.regex.email);
+      if (regex.test(email)) {
+            const auth = this.mockCreateAuthResult(email);
 
             if (auth.isAuthenticated()) {
               this.setAuth(auth);
@@ -92,9 +94,11 @@ export class MockAuthService {
       }
     }
 
-    private mockCreateAuthResult() {
+    private mockCreateAuthResult(email: string | null = null, name: string | null = null) {
+      email = email || this.mockGetAuth()?.user?.email || "mock.domain.com";
+      name = name || this.mockGetAuth()?.user?.name || this.mockGetRandomName();
       return new Auth({
-        user: this._mockUser,
+        user: {...this._mockUser, email, name},
         token: this.mockToken,
         expires: dayjs().add(this._mockExpiresInHours, "hours")
       });
@@ -112,5 +116,9 @@ export class MockAuthService {
       }
       return false;
     }
-  
+ 
+    private mockGetRandomName() {
+      const ret = mock_names[Math.floor(Math.random() * mock_names.length)];
+      return `${ret.first_name} ${ret.last_name}`;
+    }
 }

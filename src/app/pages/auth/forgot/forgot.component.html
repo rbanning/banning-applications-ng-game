@@ -1,0 +1,30 @@
+<h1>Forgot Your Password?</h1>
+
+<div class="content" *ngIf="{ working: working$ | async } as obs">
+  <app-working [show]="obs.working === true" theme="accent"></app-working>
+
+  <form class="a-form" 
+    (submit)="submit()" 
+    [formGroup]="forgotForm">
+    <div class="field" appFormField>
+      <label>Email</label>
+      <input placeholder="Email Address" formControlName="email" required/>
+      <app-input-error [control]="getCtrl('email')"></app-input-error>
+    </div>
+
+    <div *ngIf="forgotError" class="error-message">
+      {{ forgotError }}
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" [disabled]="!forgotForm.valid || (obs.working)">
+        <app-button-spinner-wrapper [working]="obs.working === true" [buttonText]="'Reset Password'" style="width: 100%;">
+        </app-button-spinner-wrapper>
+      </button>
+      <button [routerLink]="['/']" class="btn btn-cancel">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+</div>

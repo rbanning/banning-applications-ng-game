@@ -117,3 +117,17 @@ export function stringCompare(a: string, b: string, ignoreCase: boolean = false)
   //one is null so
   return !a && !b ? 0 : (!a ? -1 : 1);
 }
+
+//see https://gist.github.com/hyamamoto/fd435505d29ebfa3d9716fd2be8d42f0
+export function generateHash(text: string): number {
+  var hash = 0, i;
+  for (i = 0; i < text.length; i++) {
+    // chr   = text.charCodeAt(i);
+    // hash  = ((hash << 5) - hash) + chr;
+    // hash |= 0; // Convert to 32bit integer
+
+    //faster
+    hash = Math.imul(31, hash) + text.charCodeAt(i) | 0;
+  }
+  return hash;
+};

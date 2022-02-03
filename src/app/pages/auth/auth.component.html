@@ -1,1 +1,23 @@
-<p>auth works!</p>
+<h1>Profile</h1>
+<ng-container *ngIf="auth$ | async as auth; else noUser">
+  <div class="wrapper" *ngIf="auth.isAuthenticated(); else noUser">
+    <h3>{{auth.user?.name}}<sup>*</sup></h3>
+    <h5>{{auth.user?.email}}</h5>
+    <p>
+      <span class="font-semibold"><sup>*</sup> But that is not my real name?</span> 
+      <br>
+      Yep - it is just a randomly generated name.  We are not using <em>real</em> authentication
+      for this demo app.
+    </p>
+    <p>
+      Try <a [routerLink]="['/auth', 'login']">logging in again</a> to get another name.
+    </p>
+  </div>
+</ng-container>
+
+<ng-template #noUser>
+  <p class="error">
+    Could not locate your profile.  
+    Please try to <a [routerLink]="['/auth','login']">log in again.</a> 
+  </p>
+</ng-template>

@@ -27,6 +27,7 @@ export * from './storage.service';
 export * from './auth.service';
 export * from './page-title.guard';
 export * from './auth.guard';
+export * from './toast.service';
 
 //not including mocks in the base services index.  
 //they should be access directly from /mocks.

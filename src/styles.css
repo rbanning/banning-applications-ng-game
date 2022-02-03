@@ -150,6 +150,9 @@ input.ng-invalid:not(.ng-pristine) {
 .actions {
   @apply w-full my-6 flex justify-start items-center;
 }
+.actions.column {
+  @apply flex-col items-start;
+}
 .actions.right {
   @apply justify-end;
 }
@@ -158,4 +161,7 @@ input.ng-invalid:not(.ng-pristine) {
 }
 .actions > * {
   @apply mx-4;
+}
+.actions.column > * {
+  @apply my-1;
 }

@@ -25,10 +25,8 @@ export class ToastService {
     //push onto the _backlog if active
     if (this.isActive()) {
       this._backlog.push(ret);
-      console.log("DEBUG: ToastService - push on backlog", {ret, backlog: this._backlog})
     } else {
       this.activateToast(ret);
-      console.log("DEBUG: ToastService - activate", {ret, backlog: this._backlog})
     }
 
     return ret;
@@ -38,15 +36,12 @@ export class ToastService {
   //  - if there are any items on the _backlog, queue the next toast
   //  - otherwise push NULL on to the _store subject
   close() {
-    console.log("DEBUG: ToastService - close", {current: this.currentToast, backlog: this._backlog})
     this.activateToast(this._backlog.shift() || null)
   }
 
 
   private scheduleClose(toast: IToast) {
     if (toast?.delay) {
-      console.log("DEBUG: ToastService - scheduling delay", {toast})
-
       window.setTimeout(() => {
         if (this.currentToast()?.id === toast.id) {
           this.close();

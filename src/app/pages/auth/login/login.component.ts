@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;  //initialized in OnInit
   loginError: AuthLoginFailed | null = null;
   working$: Observable<boolean>;
-  private readonly AUTH_CODE = 'game';  //this should be in config but included here to show how one can use a code
 
   constructor(
     private authService: AuthService,
@@ -43,11 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    if (this.loginForm.value.code !== this.AUTH_CODE) {
-      this.loginError = new AuthLoginFailed("Invalid login code!");
-      return; //jump out!
-    }
-    //else
     this.loginError = null; //reset
     this.authService.login(
         this.loginForm.value.email, 
@@ -77,7 +71,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(appValidators.regex.email)]],
       password:[ '', [Validators.required]],
-      code: ['', [Validators.required]]
     });
   }
 }

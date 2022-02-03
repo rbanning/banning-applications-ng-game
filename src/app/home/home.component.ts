@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     const config = this.configService.getAll();
-    console.log("DEBUG: Config", {config, keys: this.configService.keys()});
   }
 
   toggleWorking() {
