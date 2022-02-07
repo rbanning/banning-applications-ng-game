@@ -1,4 +1,12 @@
 <div class="wrapper" *ngIf="photo; else noPhoto" (click)="handleClick($event)">
+  <app-working [show]="working"></app-working>
+
+  <p *ngIf="error" class="error">
+    {{error}}
+  </p>
+
+  <ng-container *ngIf="loaded">
+  
   <img [src]="src" [alt]="photo.alt" class="block"/>
   <cite class="block text-sm">
     by: 
@@ -23,7 +31,58 @@
     </p>
   </div>
   
+  <div class="more-wrapper" (click)="showMoreModal = true" *ngIf="more">
+    <img src="../../../../../assets/icons/more.png" alt="three dots indicating more"/>
+  </div>
+
+  </ng-container>
+
 </div>
+
+<app-modal [open]="showMoreModal" title="Photo Details" (dismissed)="showMoreModal = false">
+  <div class="details">
+    <h2>Details</h2>
+    <section *ngIf="photo?.photographer">
+      <h3><span>Photographer</span></h3>
+      <p><strong>Name:</strong> {{photo?.photographer?.name || 'n/a'}}</p>
+      <p><strong>Unsplash Username:</strong> {{photo?.photographer?.username || photo?.username}}</p>
+      <p><strong>Location:</strong> {{photo?.photographer?.location || "n/a"}}</p>
+      <p *ngIf="photo?.photographer?.bio">
+        <strong>Bio</strong>
+        <br>
+        {{photo?.photographer?.bio}}
+      </p>
+      <div class="actions my-4">
+        <a [href]="photo?.photographer?.link" target="unsplash" class="btn">View More Photos</a>
+        <a [href]="photo?.photographer?.portfolio" *ngIf="photo?.photographer?.portfolio" target="unsplash" class="btn">Photographer's Site</a>
+      </div>
+    </section>
+    <section>
+      <h3><span>Meta Information</span></h3>
+      <p><strong>Created/Published:</strong> {{photo?.published | mDate}}</p>
+      <p><strong>Description:</strong> {{photo?.description || photo?.alt || 'n/a'}}</p>
+      <p><strong>Location: </strong>
+        <ng-container *ngIf="photo?.location?.city; else na">
+          {{photo?.location?.city}}, {{photo?.location?.country}}
+        </ng-container>
+      </p>
+      <p><strong>Color: </strong> 
+        <ng-container *ngIf="photo?.color; else na">
+          <span class="inline-block w-6 h-6" [style.background]="photo?.color || 'white'"></span>
+          {{photo?.color}}
+        </ng-container>
+        
+      </p>
+      <p class="flex flex-wrap items-center"><strong>Tags:</strong> 
+        <span class="badge" *ngFor="let item of photo?.tags || []">{{item}}</span>
+      </p>
+      <p class="flex flex-wrap items-center"><strong>Topics:</strong> 
+        <span class="badge" *ngFor="let item of photo?.topics || []">{{item}}</span>
+      </p>
+    </section>
+  </div>
+  
+</app-modal>
 
 <ng-template #noPhoto>
   <div class="error">no photo</div>
@@ -31,3 +90,4 @@
 <ng-template #noPhotographer>
   <span class="error">un-sourced</span>
 </ng-template>
+<ng-template #na>n/a</ng-template>

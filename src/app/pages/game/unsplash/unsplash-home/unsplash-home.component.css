@@ -12,14 +12,23 @@
 .column h3 {
   @apply text-retro-blue-900;
 }
-.wrapper {
-  @apply p-2 bg-slate-100 h-full w-full;
+.column.done h3 {
+  @apply text-retro-blue-900 font-bold;
 }
+.column.done h3::after {
+  @apply text-xs inline-block mx-2 text-amber-500;
+  content: '[done]'
+}
+
+.wrapper {
+  @apply p-2 bg-slate-100 border-4 border-retro-blue-400 h-full w-full;
+}
+.column.done .wrapper {
+  @apply border-retro-blue-900;
+}
+
 .wrapper app-game-photo {
   @apply m-3 cursor-pointer block;
-}
-.wrapper {
-  @apply border-4 border-retro-blue-400;
 }
 
 .game.done, .game.done .column, .game.done .wrapper {
@@ -41,4 +50,21 @@
 .cdk-drag-animating {
   border: solid 3px pink;
   transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.grow-box {
+    transform: scale(0);
+    transform-origin: top;
+}
+.grow-box.open {
+  animation: grow 0.7s ease-in-out forwards;
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

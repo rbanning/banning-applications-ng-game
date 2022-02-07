@@ -1,0 +1,30 @@
+.wrapper {
+  position: relative;
+}
+.more-wrapper {
+  position: absolute;
+  top: 0.7em;
+  right: 0.7em;
+  background: white;
+  padding: 0.5em;
+  border-radius: 50%;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.details section {
+  @apply p-2 border-2 border-slate-300;
+}
+.details section h3 {
+  @apply my-0;
+  margin-top: -1em;
+}
+.details section h3 span {
+  @apply bg-white p-2 rounded font-bold;
+}
+.details section p {
+  @apply my-2;
+}
+.badge {
+  @apply py-2 px-2 mx-2 border-2 border-slate-200 rounded text-sm;
+}

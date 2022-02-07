@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -7,12 +7,16 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { sharedComponents } from './components';
 import { sharedDirectives } from './directives';
+import { sharedPipes } from './pipes';
 
+export const pipeProviders: Provider[] = sharedPipes.map(p => {
+  return {provide: p, useClass: p};
+});
 
 
 @NgModule({
   declarations: [
-    // pipes,
+    sharedPipes,
     sharedComponents,
     sharedDirectives,
     // IsEmptyPipe,
@@ -24,14 +28,14 @@ import { sharedDirectives } from './directives';
     DragDropModule
   ],
   providers: [
-    // pipeProviders
+    pipeProviders
   ],
   exports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
     DragDropModule,
-    // pipes,
+    sharedPipes,
     sharedComponents,
     sharedDirectives,
   ]

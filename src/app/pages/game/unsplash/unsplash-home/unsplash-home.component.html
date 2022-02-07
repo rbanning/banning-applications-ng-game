@@ -1,31 +1,108 @@
-<h1>The Unsplash Game</h1>
+<h1>The Unsplash Photo Game</h1>
 <app-working [working$]="working$"></app-working>
 
+<div class="instructions my-4">
+  <h3>Instructions</h3>
+  <p class="text-lg">
+    The <em>Unsplash Photo Game</em> asks you to group a set of photos into two award categories 
+    and one set of <a href="https://en.wikipedia.org/wiki/Red_herring" target="_blank">red herrings</a>.
+    You drag the photos between columns grouping them by award category (or red herring).
+    Once you get all of the photos in the right columns, the game will end and the award categories will appear.  
+  </p>
+  <div class="grow-box" *ngIf="showDetailedInstructions" [class.open]="showDetailedInstructions">
+    <p>
+      <a href="https://unsplash.com" target="_blank">Unsplash</a>
+      offers a repository of high quality photos free to use.  Their
+      motto: <strong>Photos for everyone</strong>.  Each year, Unsplash
+      celebrates the "best of open photography" with their 
+      <a href="https://unsplash.com/awards" target="_blank">awards showcase</a>. 
+      We have gathered many of the photos from recent years and created 
+      the <em>Unsplash Photo Game</em> to challenge you to group award finalists
+      together by category. 
+    </p>
+    <p>
+      We have also scattered in a few <em>Red Herring</em> photos.  These came from Unsplash but 
+      were not award finalists. Sometimes a red herring photo will appear to fit a category.
+      You have to get into the head of the judges to weed out those that do not belong.
+    </p>
+    <p>
+      Here are some free hints...
+    </p>
+    <ul class="list-disc px-4 m-4">
+      <li>To move a photo, drag it to another category</li>
+      <li>The order of the photos within a category does not matter</li>
+      <li>Double-click on a photo to view a larger image</li>
+      <li>There are three levels of play:
+        <ol class="list-decimal px-4 mx-2">
+          <li><strong>Novice:</strong> All of the categories are visible</li>
+          <li><strong>Competent:</strong> Categories become visible as a column is complete</li>
+          <li><strong>Pro:</strong> Categories become visible after every photo is in the right column</li>
+        </ol>
+      </li>
+    </ul>
+  </div>  
+  <div>
+    <button class="btn btn-sm" (click)="showDetailedInstructions = !showDetailedInstructions">
+      {{showDetailedInstructions ? "show less..." : "show more..."}}
+    </button>
+  </div>
+</div>
+
+
 <ng-container *ngIf="game$ | async as game">
+  <div class="actions center tight py-2 border-2 border-retro-blue-300 rounded">
+    <strong>mode:</strong>
+    <button 
+      class="btn btn-sm" 
+      (click)="changeMode(game, item)"
+      [class.btn-primary]="mode === item"
+      *ngFor="let item of gameModes">{{item}}</button>
+
+    <strong class="inline-block ml-6">caution:</strong>
+    <button 
+      class="btn btn-sm btn-accent" 
+      (click)="resetGame(game)">Reset the Game</button>
+
+  </div>
+
   <div class="flex game" [class.done]="game.done">
-    <div class="column">
-      <h3>{{game.done ? game.first.category : '********'}}</h3>
+    <div class="column" [class.done]="game.done || (game.first.reveal && game.first.done)">
+      <h3>{{game.first.reveal ? game.first.category : '********'}}</h3>
       <div class="wrapper" 
         cdkDropList
         #firstCol="cdkDropList"
         [cdkDropListData]="game.first.items"
         [cdkDropListConnectedTo]="[secondCol,herringCol]"
         (cdkDropListDropped)="drop($event, game)">
-        <app-game-photo [photo]="item" size="thumb" [square]="true" *ngFor="let item of game.first.items" cdkDrag [cdkDragDisabled]="game.done"></app-game-photo>
+        <app-game-photo 
+          [photo]="item" 
+          size="thumb" 
+          [square]="true" 
+          (dblclick)="select(item)"
+          *ngFor="let item of game.first.items" 
+          cdkDrag 
+          [cdkDragDisabled]="game.done || game.first.reveal && game.first.done"></app-game-photo>
       </div>
     </div>
-    <div class="column">
-      <h3>{{game.done ? game.second.category : '********'}}</h3>
+    <div class="column" [class.done]="game.done || (game.second.reveal && game.second.done)">
+      <h3>{{game.second.reveal ? game.second.category : '********'}}</h3>
       <div class="wrapper" 
         cdkDropList
         #secondCol="cdkDropList"
         [cdkDropListData]="game.second.items"
         [cdkDropListConnectedTo]="[firstCol,herringCol]"
         (cdkDropListDropped)="drop($event, game)">
-        <app-game-photo [photo]="item" size="thumb" [square]="true" *ngFor="let item of game.second.items" cdkDrag [cdkDragDisabled]="game.done"></app-game-photo>
+        <app-game-photo 
+          [photo]="item" 
+          size="thumb" 
+          [square]="true" 
+          (dblclick)="select(item)"
+          *ngFor="let item of game.second.items" 
+          cdkDrag 
+          [cdkDragDisabled]="game.done || game.second.reveal && game.second.done"></app-game-photo>
       </div>
     </div>
-    <div class="column">
+    <div class="column" [class.done]="game.done || (game.herrings.reveal && game.herrings.done)">
       <h3>{{game.herrings.category}}</h3>
       <div class="wrapper" 
       cdkDropList
@@ -33,7 +110,14 @@
         [cdkDropListData]="game.herrings.items"
         [cdkDropListConnectedTo]="[firstCol, secondCol]"
         (cdkDropListDropped)="drop($event, game)">
-        <app-game-photo [photo]="item" size="thumb" [square]="true" *ngFor="let item of game.herrings.items" cdkDrag [cdkDragDisabled]="game.done"></app-game-photo>
+        <app-game-photo 
+          [photo]="item" 
+          size="thumb" 
+          [square]="true" 
+          (dblclick)="select(item)"
+          *ngFor="let item of game.herrings.items" 
+          cdkDrag 
+          [cdkDragDisabled]="game.done || game.herrings.reveal && game.herrings.done"></app-game-photo>
       </div>
     </div>
   </div>
@@ -43,5 +127,14 @@
       their categories: {{game.first.category}}, {{game.second.category}} 
       and (the rest) {{game.herrings.category}} 
     </p>
+  </app-modal>
+  <app-modal [open]="!!selected" title="Selected Photo" (dismissed)="selected = null" *ngIf="!!selected">
+    <app-game-photo 
+          [photo]="selected" 
+          size="regular" 
+          [square]="true"
+          [more]="true"
+          [fit]="true"
+          [showWorking]="true"></app-game-photo>
   </app-modal>
 </ng-container>

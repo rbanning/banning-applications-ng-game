@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { unsplashUrl } from '@app/shared/common';
 import { IGamePhoto, PhotoSize } from '@app/shared/models';
 
 const defaultFallback = 'https://picsum.photos/';
@@ -18,59 +19,40 @@ export class GamePhotoComponent implements OnInit {
   square: boolean = false;
 
   @Input()
+  fit: boolean = false;
+
+  @Input()
   fallback: string = defaultFallback;
 
   @Input()
   detailed: boolean = false;
 
+  @Input()
+  more: boolean = false;
+
+  @Input()
+  showWorking: boolean = false;
+
   @Output()
   tap = new EventEmitter<IGamePhoto>();
+  
+  showMoreModal: boolean = false;
+  working: boolean = false;
+  loaded: boolean = false;
+  error?: string;
 
-  get sizedFallback() {
-    if (this.fallback === defaultFallback) {
-      let extra = '';
-      switch(this.size) {
-        case 'full':
-          extra = '2080';
-          break;
-        case 'regular':
-          extra = '1080';
-          break;
-        case 'small':
-          extra = '400';
-          break;
-        case 'thumb':
-          extra = '200';
-          break;
-      }
-    }
-    //else
-    return this.fallback;
-  }
-
-  private defaultPhoto = 'abc';
+  private defaultPhoto = 'abc';  //todo: what to use for a default photo?
   get src(): string {
     if (this.photo && this.photo.urls) {
-      let [url, params] = (this.photo.urls[this.size] || '').split('?');
-      if (params) {
-        let query = params.split("&")
-                .reduce((prev: any, param: string) => {
-                  const [key, value] = param.split('=');
-                  prev[key] = value;
-                  return prev;
-                }, {});
-        if (this.square) {
-          //fit=fillmax&fill=blur
-          query = {
-            ...query,
-            fit: "fillmax",
-            fill: 'blur',
-            h: query.w
-          };          
-        }
-        url += '?' + Object.keys(query).map(key => `${encodeURI(key)}=${encodeURI(query[key])}`).join('&');
+      let width: number | null = null;
+      if (this.fit) {
+        width = Math.floor(document.body.offsetWidth * .7);
       }
-      return url;
+      return  unsplashUrl(
+        this.photo.urls, 
+        this.size, 
+        this.square, 
+        typeof(width) === 'number' ? width : undefined);
     }
     //else
     return this.defaultPhoto;
@@ -79,6 +61,33 @@ export class GamePhotoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.error = undefined;
+
+    //do we want to show the "working" bar?
+    if (this.showWorking) {
+      this.working = true;
+      this.loaded = false;
+      this.loadImage();
+    } else {
+      this.working = false;
+      this.loaded = true;
+    }
+  }
+
+  private loadImage() {
+    if (this.photo) {
+      const img = new Image();
+      img.onload = () => { 
+        this.working = false; 
+        this.loaded = true; 
+      }
+      img.onerror = (err) => {
+        this.working = false; 
+        this.error = "Unable to find the image";
+      }
+      img.src = this.src;  
+    }
+    return !!this.photo;
   }
 
   handleClick(event: MouseEvent) {

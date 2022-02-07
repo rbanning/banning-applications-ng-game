@@ -168,3 +168,6 @@ input.ng-invalid:not(.ng-pristine) {
 .actions.column > * {
   @apply my-1;
 }
+.actions.tight > * {
+  @apply mx-2;
+}

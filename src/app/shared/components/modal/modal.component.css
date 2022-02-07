@@ -5,7 +5,7 @@
   z-index: 2000;
 
   display: none; 
-  @apply sm:p-2 md:p-6 overflow-hidden;
+  @apply sm:p-2 md:p-6 overflow-y-auto;
 }
 :host.open {
   display: block;
@@ -21,8 +21,9 @@
   @apply flex justify-center items-center w-full h-full;
 }
 .dialog {
-  @apply bg-slate-50 border-2 border-slate-400 shadow-sm;
+  @apply bg-slate-50 border-2 border-slate-400 shadow-sm max-h-full max-w-full;
 }
+
 .dialog .header {
   @apply py-2 px-2 bg-retro-blue-600 text-slate-50 flex justify-between;
 }

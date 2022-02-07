@@ -15,6 +15,7 @@ export interface IUnsplashGameCategory {
 export interface IUnsplashGameCategoryWithItems extends IUnsplashGameCategory {
   items: IGamePhoto[];
   done?: boolean; //keeping this in to allow for easier mode
+  reveal?: boolean; //shows the category
 }
 export interface IUnsplashGame {
   first: IUnsplashGameCategoryWithItems;
@@ -57,6 +58,20 @@ export class UnsplashGameService {
         })
       )
   }
+  resetGame(game: IUnsplashGame) {
+    if (!game) { return; }
+    
+    //shuffle the items
+    const items = randomizeArray([
+      ...game.first.items,
+      ...game.second.items,
+      ...game.herrings.items
+    ]);
+    game.first.items = takeFromArray(items, UnsplashGameCategorySize, false /* not immutable */);
+    game.second.items = takeFromArray(items, UnsplashGameCategorySize, false /* not immutable */);
+    game.herrings.items = takeFromArray(items, UnsplashGameCategorySize, false /* not immutable */);
+  }
+
   private _buildGame(category1: IUnsplashGameCategory, category2: IUnsplashGameCategory): Observable<IUnsplashGame> {
     //only is executed when status === 'READY'
     if (this.status === 'READY') {
@@ -75,15 +90,8 @@ export class UnsplashGameService {
             ret.herrings.items = this.processCategoryItems(this._randomHerrings() as IGamePhoto[], ret.herrings.category);
 
             //now shuffle the items
-            const items = randomizeArray([
-              ...ret.first.items,
-              ...ret.second.items,
-              ...ret.herrings.items
-            ]);
-            ret.first.items = takeFromArray(items, UnsplashGameCategorySize, false /* not immutable */);
-            ret.second.items = takeFromArray(items, UnsplashGameCategorySize, false /* not immutable */);
-            ret.herrings.items = takeFromArray(items, UnsplashGameCategorySize, false /* not immutable */);
-
+            this.resetGame(ret);
+            
             console.log("DEBUG the unsplash game", ret);  
             return ret;
           })
