@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Observable, Subscription } from 'rxjs';
+import { debounceTime, fromEvent, Observable, Subscription } from 'rxjs';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 
 import { BannAppsUnsplashService, ToastService, IUnsplashGame, IUnsplashGameCategoryWithItems, UnsplashGameCategorySize, UnsplashGameService } from '@app/core/services';
@@ -9,7 +9,7 @@ import { IGamePhoto, IGamePhotographer } from '@app/shared/models';
 import { httpErrorToString, parseHttpError, unsplashUrl } from '@app/shared/common';
 
 export type GameMode = 'Novice' | 'Competent' | 'Pro';
-
+export type ScreenSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'app-unsplash-home',
   templateUrl: './unsplash-home.component.html',
@@ -23,11 +23,13 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
   game$: Observable<IUnsplashGame>;
   selected: IGamePhoto | null = null;
 
+  screenSize: ScreenSize = 'sm';
   mode: GameMode = 'Pro';
   gameModes: GameMode[] = ['Novice', 'Competent', 'Pro'];
   showDetailedInstructions: boolean = false;
   categories: string[] = [];
 
+  
   constructor(
     private bannapps: BannAppsUnsplashService,
     private gameService: UnsplashGameService,
@@ -40,6 +42,7 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
       { category: 'Food & Drink', year: 2021 }
     );
 
+    //look for changes to the game id
     this.subscriptions.push(
       route.params.subscribe({
         next: (params) => {
@@ -50,7 +53,7 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
           }
         }
       })
-    )
+    );
   }
 
   changeMode(game: IUnsplashGame, mode: GameMode) {
@@ -182,8 +185,31 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
     return '';
   }
 
+  private setScreenSize(evt: Event | null = null) {
+    const width = evt?.target ? (evt?.target as Window).innerWidth : window.innerWidth;
+    if (width > 900) {
+      this.screenSize = 'lg';
+    } else if (width > 500) {
+      this.screenSize = 'md';
+    } else {
+      this.screenSize = 'sm';
+    }
+  }
 
   ngOnInit(): void {
+    //watch for changes in the screen size
+    this.setScreenSize();
+
+    this.subscriptions.push(
+      fromEvent(window, 'resize')
+        .pipe(
+          debounceTime(300) //delay so we don't react on each of the intervals during resize
+        ).subscribe({
+          next: (evt: any) => {
+            this.setScreenSize(evt);
+          }
+        })
+    );
   }
 
   ngOnDestroy(): void {

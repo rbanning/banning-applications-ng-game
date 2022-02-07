@@ -76,7 +76,7 @@
         (cdkDropListDropped)="drop($event, game)">
         <app-game-photo 
           [photo]="item" 
-          size="thumb" 
+          [size]="screenSize === 'lg' ? 'small' : 'thumb'" 
           [square]="true" 
           (dblclick)="select(item)"
           *ngFor="let item of game.first.items" 
@@ -94,7 +94,7 @@
         (cdkDropListDropped)="drop($event, game)">
         <app-game-photo 
           [photo]="item" 
-          size="thumb" 
+          [size]="screenSize === 'lg' ? 'small' : 'thumb'" 
           [square]="true" 
           (dblclick)="select(item)"
           *ngFor="let item of game.second.items" 
@@ -112,7 +112,7 @@
         (cdkDropListDropped)="drop($event, game)">
         <app-game-photo 
           [photo]="item" 
-          size="thumb" 
+          [size]="screenSize === 'lg' ? 'small' : 'thumb'" 
           [square]="true" 
           (dblclick)="select(item)"
           *ngFor="let item of game.herrings.items" 
