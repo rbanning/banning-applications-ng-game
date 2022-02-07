@@ -1,0 +1,47 @@
+<h1>The Unsplash Game</h1>
+<app-working [working$]="working$"></app-working>
+
+<ng-container *ngIf="game$ | async as game">
+  <div class="flex game" [class.done]="game.done">
+    <div class="column">
+      <h3>{{game.done ? game.first.category : '********'}}</h3>
+      <div class="wrapper" 
+        cdkDropList
+        #firstCol="cdkDropList"
+        [cdkDropListData]="game.first.items"
+        [cdkDropListConnectedTo]="[secondCol,herringCol]"
+        (cdkDropListDropped)="drop($event, game)">
+        <app-game-photo [photo]="item" size="thumb" [square]="true" *ngFor="let item of game.first.items" cdkDrag [cdkDragDisabled]="game.done"></app-game-photo>
+      </div>
+    </div>
+    <div class="column">
+      <h3>{{game.done ? game.second.category : '********'}}</h3>
+      <div class="wrapper" 
+        cdkDropList
+        #secondCol="cdkDropList"
+        [cdkDropListData]="game.second.items"
+        [cdkDropListConnectedTo]="[firstCol,herringCol]"
+        (cdkDropListDropped)="drop($event, game)">
+        <app-game-photo [photo]="item" size="thumb" [square]="true" *ngFor="let item of game.second.items" cdkDrag [cdkDragDisabled]="game.done"></app-game-photo>
+      </div>
+    </div>
+    <div class="column">
+      <h3>{{game.herrings.category}}</h3>
+      <div class="wrapper" 
+      cdkDropList
+        #herringCol="cdkDropList"
+        [cdkDropListData]="game.herrings.items"
+        [cdkDropListConnectedTo]="[firstCol, secondCol]"
+        (cdkDropListDropped)="drop($event, game)">
+        <app-game-photo [photo]="item" size="thumb" [square]="true" *ngFor="let item of game.herrings.items" cdkDrag [cdkDragDisabled]="game.done"></app-game-photo>
+      </div>
+    </div>
+  </div>
+  <app-modal [open]="game.done === true" title="You are a Winner!">
+    <h2>Congratulations</h2>
+    <p>Well Done.  You have successfully sorted the photos into the 
+      their categories: {{game.first.category}}, {{game.second.category}} 
+      and (the rest) {{game.herrings.category}} 
+    </p>
+  </app-modal>
+</ng-container>

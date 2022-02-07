@@ -29,11 +29,11 @@ export class AuthService extends WorkingService {
     this.BASE_URL = this.config.getAll().auth_url || '';
 
     //use the mock service
-    const mock = new MockService<AuthService>(
-      "AuthService",
-      AuthService, this, MockAuthService,
-      ["mock@domain.com"]
-    );
+    // const mock = new MockService<AuthService>(
+    //   "AuthService",
+    //   AuthService, this, MockAuthService,
+    //   ["mock@domain.com"]
+    // );
 
     //see if the authentication creds are stored in local storage
     this.storage.get(this.AUTH_KEY)

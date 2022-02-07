@@ -1,4 +1,39 @@
 <h1>The Game</h1>
+<app-working [working$]="working$"></app-working>
+<p>
+  <a [routerLink]="['/game', 'unsplash']">Unsplash Game</a>
+</p>
+
+<div class="flex">
+  <div class="field" appFormField>
+    <label>Process</label>
+    <input type="text" #ids id="ids">
+  </div>
+  <div class="field" appFormField>
+    <label>Award Category</label>
+    <input type="text" #category id="category">
+  </div>
+  <div class="field" appFormField>
+    <label>Year</label>
+    <input type="text" #year id="year" value="2020">
+  </div>      
+</div>
+<div class="actions">
+  <button class="btn" (click)="process(ids.value)">PATCH FIELDS</button>
+  <button class="btn" (click)="addToImpact(ids.value)">ADD TOPIC</button>
+  <button class="btn" (click)="getPhotoJsonAndPost(ids.value, category.value, year.value)">CREATE PHOTO</button>
+</div>
+
+<hr>
+
+
+<div>
+  <textarea #blob rows="20" class="block w-full border-2"></textarea>
+</div>
+<div class="actions">
+  <button class="btn" (click)="post(blob.value)">GO</button>
+</div>
+
 
 <div class="field" appFormField>
   <label>Search</label>
@@ -8,7 +43,6 @@
   <button class="btn" (click)="search(query.value)">GO</button>
 </div>
 
-<app-working [working$]="working$"></app-working>
 <hr>
 
 <ng-container *ngIf="{ results: results$ | async, selected: selected$ | async } as obs">

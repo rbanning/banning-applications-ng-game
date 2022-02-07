@@ -13,6 +13,9 @@
 :host.backdrop {
   @apply bg-slate-200;
 }
+:host.backdropOpaque {
+  @apply bg-opacity-30;
+}
 
 .wrapper {
   @apply flex justify-center items-center w-full h-full;

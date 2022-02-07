@@ -1,0 +1,44 @@
+.btn.active {
+  @apply font-bold bg-black;
+}
+
+.game {
+  @apply pb-4 rounded-md;
+}
+
+.column {
+  @apply mx-4 bg-white h-full;
+}
+.column h3 {
+  @apply text-retro-blue-900;
+}
+.wrapper {
+  @apply p-2 bg-slate-100 h-full w-full;
+}
+.wrapper app-game-photo {
+  @apply m-3 cursor-pointer block;
+}
+.wrapper {
+  @apply border-4 border-retro-blue-400;
+}
+
+.game.done, .game.done .column, .game.done .wrapper {
+  @apply bg-slate-200;
+}
+
+.cdk-drag-placeholder { @apply opacity-30; }
+
+.cdk-drag {
+  border: solid 3px transparent;
+}
+
+/* Animate items as they're being sorted. */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  border: solid 3px pink;
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}

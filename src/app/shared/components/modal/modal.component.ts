@@ -15,11 +15,15 @@ export class ModalComponent implements OnInit {
   @Input()
   backdrop: boolean = true;
 
+  @Input()
+  backdropOpaque: boolean = true;
+
   @Output()
   dismissed = new EventEmitter<boolean>();
 
   @HostBinding('class.open') get showModal() { return this.open; }
   @HostBinding('class.backdrop') get showBackdrop() { return this.backdrop; }
+  @HostBinding('class.backdropOpaque') get showBackdropOpaque() { return this.backdropOpaque; }
 
   constructor() { }
 

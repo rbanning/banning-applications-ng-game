@@ -1,9 +1,9 @@
 <div class="wrapper" *ngIf="photo; else noPhoto" (click)="handleClick($event)">
-  <img [src]="photo?.getUrl(size, sizedFallback)" [alt]="photo.alt" class="block"/>
+  <img [src]="src" [alt]="photo.alt" class="block"/>
   <cite class="block text-sm">
     by: 
     <span class="font-semibold">
-      {{photo?.photographer?.name || 'un-sourced'}}
+      {{photo?.username}}
     </span>
     <span class="px-4" *ngIf="photo?.photographer?.location && detailed">
       (located in {{photo?.photographer?.location}})

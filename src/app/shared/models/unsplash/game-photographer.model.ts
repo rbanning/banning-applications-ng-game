@@ -25,9 +25,9 @@ export class GamePhotographer implements IGamePhotographer {
   constructor(obj: any = null) {
     if (obj) {
       this.id = obj.id;
-      this.username = obj.username;
+      this.username = obj.username || obj.userName;
       this.name = obj.name;
-      this.portfolio = obj.portfolio;
+      this.portfolio = obj.portfolio || obj.portfolio_url;
       this.bio = obj.bio;
       this.location = obj.location;
     }

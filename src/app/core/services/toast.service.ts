@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IToast, IToastBasic, Toast } from "@app/shared/models";
+import { IToast, IToastBasic, Toast, ToastMode } from "@app/shared/models";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable()
@@ -32,6 +32,11 @@ export class ToastService {
     return ret;
   }
 
+  addAs(mode: ToastMode, text: string, delay?: number) {
+    return this.add({mode, text, delay});
+  }
+
+  
   //indicated that the current toast is has been dismissed or timed-out
   //  - if there are any items on the _backlog, queue the next toast
   //  - otherwise push NULL on to the _store subject

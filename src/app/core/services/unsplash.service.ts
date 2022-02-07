@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { finalize, map, Observable } from "rxjs";
 
 import { ConfigService } from "./config.service";
-import { IConfig, WorkingService } from "@app/shared/models";
-import { GamePhoto, IGamePhoto } from "@app/pages/game/components/models";
+import { IConfig, GamePhoto, IGamePhoto, WorkingService, WorkingHttpService } from "@app/shared/models";
 
 export interface ISearchResult {
   query: string;
@@ -16,9 +15,8 @@ export type ColorFilter ='black_and_white' | 'black' | 'white' | 'yellow' | 'ora
 export type OrientationFilter = 'landscape' | 'portrait' | 'squarish' | null;
 
 @Injectable()
-export class UnsplashService extends WorkingService {
+export class UnsplashService extends WorkingHttpService {
   private readonly config: IConfig;
-  private readonly BASE_URL: string = 'https://api.unsplash.com/';
 
   constructor(
     private configService: ConfigService,
@@ -26,6 +24,25 @@ export class UnsplashService extends WorkingService {
   ) {
     super();
     this.config = configService.getAll();
+    this.BASE_URL = 'https://api.unsplash.com/';
+  }
+
+
+  getPhoto(id: string): Observable<IGamePhoto> {
+    const url = this.buildUrl(['photos', encodeURI(id)]);
+    return this.fetch(url)
+      .pipe(
+        map(resp => new GamePhoto(resp)),
+        finalize(() => this.setWorking(false))
+      )
+  }
+
+  getPhotoRaw(id: string): Observable<any> {
+    const url = this.buildUrl(['photos', encodeURI(id)]);
+    return this.fetch(url)
+      .pipe(
+        finalize(() => this.setWorking(false))
+      )
   }
 
   search(
@@ -36,13 +53,14 @@ export class UnsplashService extends WorkingService {
     per_page: number = 10): Observable<ISearchResult> {
 
       //build url
-      let url = `${this.BASE_URL}search/photos?query=${encodeURI(query)}&page=${page}&per_page=${per_page}`;
+      const queryParams: any = { query };
       if (color) {
-        url += `&color=${encodeURI(color)}`;
+        queryParams.color = color;
       }
       if (orientation) {
-        url += `&orientation=${encodeURI(orientation)}`;
+        queryParams.orientation = orientation;
       }
+      const url = this.buildUrl(['search', 'photos'], queryParams);
       this.setWorking(true);
       return this.fetch(url)
         .pipe(

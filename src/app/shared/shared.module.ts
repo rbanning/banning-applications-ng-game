@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { sharedComponents } from './components';
 import { sharedDirectives } from './directives';
 
@@ -18,6 +21,7 @@ import { sharedDirectives } from './directives';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    DragDropModule
   ],
   providers: [
     // pipeProviders
@@ -26,6 +30,7 @@ import { sharedDirectives } from './directives';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    DragDropModule,
     // pipes,
     sharedComponents,
     sharedDirectives,
