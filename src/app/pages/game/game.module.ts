@@ -6,14 +6,16 @@ import { GameRoutingModule } from './game-routing.module';
 import { GameComponent } from './game.component';
 import { ThreeLetterWordHomeComponent } from './three-letter-word/three-letter-word-home/three-letter-word-home.component';
 import { UnsplashHomeComponent } from './unsplash/unsplash-home/unsplash-home.component';
+import { UnsplashBuilderComponent } from './unsplash-builder/unsplash-builder.component';
 
 
 @NgModule({
   declarations: [
     gameComponents,
     GameComponent,
+    UnsplashBuilderComponent,
     UnsplashHomeComponent,
-    ThreeLetterWordHomeComponent
+    ThreeLetterWordHomeComponent,
   ],
   imports: [
     SharedModule,

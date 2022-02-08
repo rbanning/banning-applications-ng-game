@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard, PageTitleGuard } from '@app/core/services';
 import { GameComponent } from './game.component';
 import { ThreeLetterWordHomeComponent } from './three-letter-word/three-letter-word-home/three-letter-word-home.component';
+import { UnsplashBuilderComponent } from './unsplash-builder/unsplash-builder.component';
 import { UnsplashHomeComponent } from './unsplash/unsplash-home/unsplash-home.component';
 
 const routes: Routes = [
@@ -22,13 +23,19 @@ const routes: Routes = [
     path: 'unsplash', 
     component: UnsplashHomeComponent,
     canActivate: [PageTitleGuard, AuthGuard], //restrict to authenticated users
-    data: { title: 'Unsplash' }
+    data: { title: 'Unsplash Game' }
   },
   { 
     path: 'unsplash/:game', 
     component: UnsplashHomeComponent,
     canActivate: [PageTitleGuard, AuthGuard], //restrict to authenticated users
-    data: { title: 'Unsplash' }
+    data: { title: 'Unsplash Game' }
+  },
+  { 
+    path: 'unsplash-builder', 
+    component: UnsplashBuilderComponent,
+    canActivate: [PageTitleGuard, AuthGuard], //restrict to authenticated users
+    data: { title: 'Unsplash Builder' }
   },
 ];
 

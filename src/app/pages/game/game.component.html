@@ -1,79 +1,76 @@
 <h1>The Game</h1>
-<app-working [working$]="working$"></app-working>
-<p>
-  <a [routerLink]="['/game', 'unsplash']">Unsplash Game</a>
-</p>
-<p>
-  <a [routerLink]="['/game', 'three-letter-word']">Three Letter Word Game</a>
-</p>
 
-<div class="flex">
-  <div class="field" appFormField>
-    <label>Process</label>
-    <input type="text" #ids id="ids">
+<div class="instructions my-4">
+  <h3>Introduction</h3>
+  <p class="text-xl">
+    We here at <a href="https://bannapps.com" target="_blank">Banning Applications</a>
+    love games. We have developed two games to showcase our Angular skills... and 
+    because we <em>really</em> enjoy working on new, fun, projects.
+  </p>
+  <div class="grow-box" *ngIf="showDetailedInstructions" [class.open]="showDetailedInstructions">
+    <p>
+      During COVID lock down, we developed 
+        <a href="https://the-hunt.trythisforfun.com/" target="_blank">The Hunt</a>
+        where players (friends and family) could try their luck on a variety of 
+        mini-games.  While the game was well-received, we learned that our real 
+        satisfaction came from all of the new code libraries and techniques 
+        we had to discover to achieve the desired effect/feature.
+        <strong>For us, every new project is a learning experience</strong>
+        and building games ("for the fun of it") is our  
+         Professional Development Program.
+    </p>
+    <p>
+      The first game - 
+      <a [routerLink]="['/game', 'unsplash']">The Unsplash Game</a> - asks you to 
+      group a set of photos by category.  If you have played the wonderful game
+      <a href="https://play.google.com/store/apps/details?id=com.BlueOxTech.RedHerring" target="_blank">
+        Red Herring
+      </a>, this game will be familiar.  If you have not played Red Herring, why not? ;-)
+    </p>
+    <p>
+      The second game - 
+      <a [routerLink]="['/game', 'three-letter-word']">The X-Letter Word Game</a> - 
+      asks you to guess a word of a given length. Many of you are familiar
+      with <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>. 
+      We have three versions of the word guessing game:
+      
+    </p>
+    <ul class="list-decimal mx-4 px-4">
+      <li>
+        <a [routerLink]="['/game', 'three-letter-word']">The Three-Letter Word Game</a>
+        (We play this game during dinner, on car rides, and now online!)
+      </li>
+      <li>
+        <a [routerLink]="['/game', 'four-letter-word']">The Four-Letter Word Game</a>
+        (Our family tried this (analog version) but went back to the 3-letter version.)
+      </li>
+      <li>
+        <a [routerLink]="['/game', 'five-letter-word']">The Five-Letter Word Game</a>
+        (We just learn of Wordle and are addicted!)
+      </li>
+    </ul>
+  </div>  
+  <div>
+    <button class="btn btn-sm" (click)="showDetailedInstructions = !showDetailedInstructions">
+      {{showDetailedInstructions ? "show less..." : "show more..."}}
+    </button>
   </div>
-  <div class="field" appFormField>
-    <label>Award Category</label>
-    <input type="text" #category id="category">
-  </div>
-  <div class="field" appFormField>
-    <label>Year</label>
-    <input type="text" #year id="year" value="2020">
-  </div>      
-</div>
-<div class="actions">
-  <button class="btn" (click)="process(ids.value)">PATCH FIELDS</button>
-  <button class="btn" (click)="addToImpact(ids.value)">ADD TOPIC</button>
-  <button class="btn" (click)="getPhotoJsonAndPost(ids.value, category.value, year.value)">CREATE PHOTO</button>
 </div>
 
-<hr>
-
-
-<div>
-  <textarea #blob rows="20" class="block w-full border-2"></textarea>
-</div>
-<div class="actions">
-  <button class="btn" (click)="post(blob.value)">GO</button>
-</div>
-
-
-<div class="field" appFormField>
-  <label>Search</label>
-  <input type="text" #query id="query">
-</div>
-<div class="actions">
-  <button class="btn" (click)="search(query.value)">GO</button>
-</div>
-
-<hr>
-
-<ng-container *ngIf="{ results: results$ | async, selected: selected$ | async } as obs">
-
-  <div class="wrapper" *ngIf="obs.results">
-    <ng-container *ngIf="!error; else showError">
-      <h3>{{obs.results.total}} Results for <code>{{obs.results.query}}</code></h3>
-      <div class="flex flex-wrap">
-        <app-game-photo 
-          [photo]="photo" 
-          class="my-2 mx-4 border-2 cursor-pointer"
-          (tap)="showDetails($event)"
-          *ngFor="let photo of obs.results.results">
-        </app-game-photo>
-      </div>  
-    </ng-container>
-  </div>
-  <app-modal [open]="!!obs.selected" [title]="obs.selected?.id" (dismissed)="hideDetails()" >
-    <app-game-photo [photo]="obs.selected" size="small" [detailed]="true"></app-game-photo>
-  </app-modal>
-
-</ng-container>
-
-<ng-template #showError>
-  <div class="error">
-    <strong>Oops!</strong>
+<ul class="list-disc m-4 p-4">
+  <li>
+    <a [routerLink]="['/game', 'unsplash']" class="font-bold text-retro-blue-800 text-xl">The Unsplash Game</a>
     <br>
-    {{error}}
-  </div>
-</ng-template>
+    A photo grouping game
+    <button class="btn btn-sm" [routerLink]="['/game', 'unsplash']">Go</button>
+  </li>
+  <li class="my-4">
+    <a [routerLink]="['/game', 'three-letter-word']" class="font-bold text-retro-blue-800 text-xl">The X-Letter Word Game</a>
+    <ul class="list-disc my-2 mx-4 px-4">
+      <li class="py-2"><a [routerLink]="['/game', 'three-letter-word']">The Three-Letter Word Game</a></li>
+      <li class="py-2"><a [routerLink]="['/game', 'four-letter-word']">The Four-Letter Word Game</a></li>
+      <li class="py-2"><a [routerLink]="['/game', 'five-letter-word']">The Five-Letter Word Game</a></li>
+    </ul>
+  </li>
 
+</ul>
