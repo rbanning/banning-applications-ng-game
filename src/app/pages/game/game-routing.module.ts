@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard, PageTitleGuard } from '@app/core/services';
+import { FiveLetterWordHomeComponent } from './five-letter-word/five-letter-word-home/five-letter-word-home.component';
+import { FourLetterWordHomeComponent } from './four-letter-word/four-letter-word-home/four-letter-word-home.component';
 import { GameComponent } from './game.component';
 import { ThreeLetterWordHomeComponent } from './three-letter-word/three-letter-word-home/three-letter-word-home.component';
 import { UnsplashBuilderComponent } from './unsplash-builder/unsplash-builder.component';
@@ -16,6 +18,18 @@ const routes: Routes = [
   { 
     path: 'three-letter-word', 
     component: ThreeLetterWordHomeComponent,
+    canActivate: [PageTitleGuard, AuthGuard], //restrict to authenticated users
+    data: { title: 'Three Letter Word Game' }
+  },
+  { 
+    path: 'four-letter-word', 
+    component: FourLetterWordHomeComponent,
+    canActivate: [PageTitleGuard, AuthGuard], //restrict to authenticated users
+    data: { title: 'Three Letter Word Game' }
+  },
+  { 
+    path: 'five-letter-word', 
+    component: FiveLetterWordHomeComponent,
     canActivate: [PageTitleGuard, AuthGuard], //restrict to authenticated users
     data: { title: 'Three Letter Word Game' }
   },

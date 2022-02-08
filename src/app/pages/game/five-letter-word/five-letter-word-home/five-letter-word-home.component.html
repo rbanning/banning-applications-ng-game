@@ -1,0 +1,102 @@
+<h1>The <strong>Five</strong> Letter Word Game</h1>
+
+
+<div class="instructions my-4">
+  <h3>Instructions</h3>
+  <p class="text-lg">
+    The <em>Five-Letter Word Game</em> asks you to try to guess a five-letter word.
+    You guess and we tell you which letters are in the correct location and 
+    and of any letters that are in the word but not in the correct location.  
+    When you get the word correct - YOU WIN!
+  </p>
+  <div class="grow-box" *ngIf="showDetailedInstructions" [class.open]="showDetailedInstructions">
+    <p>
+      In this game, you try to guess our secretly chosen 5-letter word.  After each
+      guess, we go through each letter in your guess and tell you if the letter is:
+      
+      <span class="block mx-4">a) in the correct location (<span class="font-bold text-green-600">green</span>),</span>
+      <span class="block mx-4">b) in the word but not in the correct location (<span class="font-bold text-amber-600">amber</span>)</span>
+      <span class="block mx-4">c) or not in the word at all. </span>
+    </p>
+    <p>
+      Let's do an example:  if our word is <span class="eg-word">FIELD</span>
+    </p>
+    
+    <ol class="list-decimal px-4 m-4">
+      <li>Your Guess: <span class="eg-word">EARTH</span> - Our Response: 
+        <span class="font-bold text-amber-600">E</span>
+        <span>A</span>
+        <span>R</span>
+        <span>T</span>
+        <span>H</span>
+      </li>
+      <li>Your Guess: <span class="eg-word">FAILS</span> - Our Response: 
+        <span class="font-bold text-green-600">F</span>
+        <span>A</span>
+        <span class="font-bold text-amber-600">I</span>
+        <span class="font-bold text-green-600">L</span>
+        <span>S</span>
+      </li>
+      <li>Your Guess: <span class="eg-word">FINES</span> - Our Response: 
+        <span class="font-bold text-green-600">F</span>
+        <span class="font-bold text-green-600">I</span>
+        <span>N</span>
+        <span class="font-bold text-amber-600">E</span>
+        <span>S</span>
+      </li>
+      <li>Your Guess: <span class="eg-word">FINAL</span> - Our Response: YOU WIN!</li>
+    </ol>
+
+    <p>Unlike, Wordle, you have as many guesses as you want.</p>
+    <p>
+      If you guess a word that is not in our list, we will not "score" it.  Our list is big, 
+      but there is a chance that a valid word might not be in our list.  Sorry about that,
+      but "them the breaks".
+    </p>
+  </div>  
+  <div>
+    <button class="btn btn-sm" (click)="showDetailedInstructions = !showDetailedInstructions">
+      {{showDetailedInstructions ? "show less..." : "show more..."}}
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="game$ | async as game">
+  <ng-container *ngIf="game; else noGame">
+
+    <h2 class="mb-4">Let's Play</h2>
+
+    <app-letter-word-game [game]="game" mode="verbose" (winner)="setWinner($event)"></app-letter-word-game>
+
+    <div class="actions" *ngIf="winningGame">
+      <button class="btn btn-primary" (click)="reset()">Play Again</button>
+      <button class="btn" [routerLink]="['/game', 'three-letter-word']">Play 3-Letter</button>
+      <button class="btn" [routerLink]="['/game', 'five-letter-word']">Play 4-Letter</button>
+    </div>
+  </ng-container>
+  
+</ng-container>
+
+<ng-template #noGame>
+  <div class="error">Oops. We could not create a game for you.</div>
+</ng-template>
+
+<app-modal [open]="!!winningGame" title="You are a Winner!">
+  <h2>Congratulations</h2>
+  <ng-container *ngIf="!!winningGame">
+    <p><strong>Excellent.</strong>
+      <br>
+      You figured out the 
+      {{winningGame.word.length}} letter word:
+      <br> 
+      <span class="text-2xl inline-block p-4 text-amber-600 font-bold font-mono">
+        {{winningGame.word}}
+      </span>
+      <br>
+      And it only took you {{winningGame.count}} guesses!
+    </p>
+  </ng-container>
+  
+</app-modal>
+
+

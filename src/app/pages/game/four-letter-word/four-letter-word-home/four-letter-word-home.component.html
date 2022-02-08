@@ -1,30 +1,30 @@
-<h1>The <strong>Three</strong> Letter Word Game</h1>
+<h1>The <strong>Four</strong> Letter Word Game</h1>
 
 
 <div class="instructions my-4">
   <h3>Instructions</h3>
   <p class="text-lg">
-    The <em>Three-Letter Word Game</em> asks you to try to guess a three-letter word.
+    The <em>Four-Letter Word Game</em> asks you to try to guess a four-letter word.
     You guess and we tell you how many letters are correct.  By <em>correct</em>, 
     we mean that the letters are in the word.  They may or may <em>not</em> be 
     in the correct location.  When you get the word correct - YOU WIN!
   </p>
   <div class="grow-box" *ngIf="showDetailedInstructions" [class.open]="showDetailedInstructions">
     <p>
-      In this game, you try to guess our secretly chosen 3-letter word.  After each
+      In this game, you try to guess our secretly chosen 4-letter word.  After each
       guess, we will tell you how many of the letters you got correct. 
       We don't let you know if these <em>correct</em> letters are in the right 
       place and we don't even tell you which of the letters is <em>correct</em>. 
     </p>
     <p>
-      Let's do an example:  if our word is <span class="eg-word">CAT</span>
+      Let's do an example:  if our word is <span class="eg-word">NICE</span>
     </p>
     
     <ol class="list-decimal px-4 m-4">
-      <li>Your Guess: <span class="eg-word">DOG</span> - Our Response: 0 found</li>
-      <li>Your Guess: <span class="eg-word">TIP</span> - Our Response: 1 found</li>
-      <li>Your Guess: <span class="eg-word">CAP</span> - Our Response: 2 found</li>
-      <li>Your Guess: <span class="eg-word">CAT</span> - Our Response: YOU WIN!</li>
+      <li>Your Guess: <span class="eg-word">BAND</span> - Our Response: 0 found</li>
+      <li>Your Guess: <span class="eg-word">ROPE</span> - Our Response: 1 found</li>
+      <li>Your Guess: <span class="eg-word">IDEA</span> - Our Response: 2 found</li>
+      <li>Your Guess: <span class="eg-word">NICE</span> - Our Response: YOU WIN!</li>
     </ol>
 
     <p>
@@ -49,7 +49,7 @@
 
     <div class="actions" *ngIf="winningGame">
       <button class="btn btn-primary" (click)="reset()">Play Again</button>
-      <button class="btn" [routerLink]="['/game', 'four-letter-word']">Play 4-Letter</button>
+      <button class="btn" [routerLink]="['/game', 'three-letter-word']">Play 3-Letter</button>
       <button class="btn" [routerLink]="['/game', 'five-letter-word']">Play 5-Letter</button>
     </div>
   </ng-container>
