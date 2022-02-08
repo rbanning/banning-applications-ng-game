@@ -11,35 +11,27 @@
   </p>
   <div class="grow-box" *ngIf="showDetailedInstructions" [class.open]="showDetailedInstructions">
     <p>
-      <a href="https://unsplash.com" target="_blank">Unsplash</a>
-      offers a repository of high quality photos free to use.  Their
-      motto: <strong>Photos for everyone</strong>.  Each year, Unsplash
-      celebrates the "best of open photography" with their 
-      <a href="https://unsplash.com/awards" target="_blank">awards showcase</a>. 
-      We have gathered many of the photos from recent years and created 
-      the <em>Unsplash Photo Game</em> to challenge you to group award finalists
-      together by category. 
+      In this game, you try to guess our secretly chosen 3-letter word.  After each
+      guess, we will tell you how many of the letters you got correct. 
+      We don't let you know if these <em>correct</em> letters are in the right 
+      place and we don't even tell you which of the letters is <em>correct</em>. 
     </p>
     <p>
-      We have also scattered in a few <em>Red Herring</em> photos.  These came from Unsplash but 
-      were not award finalists. Sometimes a red herring photo will appear to fit a category.
-      You have to get into the head of the judges to weed out those that do not belong.
+      Let's do an example:  if our word is <span class="eg-word">CAT</span>
     </p>
+    
+    <ol class="list-decimal px-4 m-4">
+      <li>Your Guess: <span class="eg-word">DOG</span> - Our Response: 0 found</li>
+      <li>Your Guess: <span class="eg-word">TIP</span> - Our Response: 1 found</li>
+      <li>Your Guess: <span class="eg-word">CAP</span> - Our Response: 2 found</li>
+      <li>Your Guess: <span class="eg-word">CAT</span> - Our Response: YOU WIN!</li>
+    </ol>
+
     <p>
-      Here are some free hints...
+      If you guess a word that is not in our list, we will not "score" it.  Our list is big, 
+      but there is a chance that a valid word might not be in our list.  Sorry about that,
+      but "them the breaks".
     </p>
-    <ul class="list-disc px-4 m-4">
-      <li>To move a photo, drag it to another category</li>
-      <li>The order of the photos within a category does not matter</li>
-      <li>Double-click on a photo to view a larger image</li>
-      <li>There are three levels of play:
-        <ol class="list-decimal px-4 mx-2">
-          <li><strong>Novice:</strong> All of the categories are visible</li>
-          <li><strong>Competent:</strong> Categories become visible as a column is complete</li>
-          <li><strong>Pro:</strong> Categories become visible after every photo is in the right column</li>
-        </ol>
-      </li>
-    </ul>
   </div>  
   <div>
     <button class="btn btn-sm" (click)="showDetailedInstructions = !showDetailedInstructions">
@@ -50,10 +42,16 @@
 
 <ng-container *ngIf="game$ | async as game">
   <ng-container *ngIf="game; else noGame">
-    <h2>Let's Play</h2>
+
+    <h2 class="mb-4">Let's Play</h2>
 
     <app-letter-word-game [game]="game" (winner)="setWinner($event)"></app-letter-word-game>
 
+    <div class="actions" *ngIf="winningGame">
+      <button class="btn btn-primary" (click)="reset()">Play Again</button>
+      <button class="btn" [routerLink]="['/game', 'four-letter-word']">Play 4-Letter</button>
+      <button class="btn" [routerLink]="['/game', 'five-letter-word']">Play 5-Letter</button>
+    </div>
   </ng-container>
   
 </ng-container>

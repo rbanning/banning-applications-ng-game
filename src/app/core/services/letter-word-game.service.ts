@@ -20,7 +20,6 @@ export class LetterWordGameService {
   buildGame(size: number): Observable<ILetterWordGame | null> {
     return this.wordRepo(size)
       .pipe(
-        tap(lists => console.log("DEBUG: the list", {lists})),
         map(lists => {
           if (lists?.words && lists?.ref) {
 
@@ -28,8 +27,6 @@ export class LetterWordGameService {
             const missing = lists.words.filter(word => {
               return !lists.ref?.includes(word.toLocaleLowerCase());
             });
-            console.log("DEBUG: CHECKING: ", {missing});
-
             const word = randomElementFromArray(lists.words);
             if (word) {
               return new LetterWordGame(word, lists.ref);

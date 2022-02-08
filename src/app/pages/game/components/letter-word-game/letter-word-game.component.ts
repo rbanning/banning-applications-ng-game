@@ -30,6 +30,8 @@ export class LetterWordGameComponent implements OnInit {
   }
 
   guess(input: HTMLInputElement) {
+    if (!input.value) { return; } //jump out if their is not input
+
     if (this.game) {
       this.game.guess(input.value);
       input.value = '';
@@ -38,7 +40,6 @@ export class LetterWordGameComponent implements OnInit {
       } else {
         input.focus();
       }
-      console.log("DEBUG: the game", this.game);
     }
   }
  

@@ -6,3 +6,7 @@
 .grow-box.open {
 animation: grow 0.7s ease-in-out forwards;
 }
+
+.eg-word {
+  @apply font-mono font-bold text-xl inline-block px-1 border-b-4 border-retro-blue-400;
+}

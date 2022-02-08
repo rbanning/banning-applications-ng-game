@@ -1,8 +1,5 @@
 <ng-container *ngIf="game">
 
-  <h2>DEBUG</h2>
-  <p>the word: {{game.word}}</p>
-
   <div class="guess-wrapper flex items-center" *ngFor="let item of guesses; index as i">
     <span class="font-mono text-slate-400 text-2xl mx-4">{{i + 1}}</span>
     <app-letter-word-guess [guess]="item" [mode]="mode"></app-letter-word-guess>
