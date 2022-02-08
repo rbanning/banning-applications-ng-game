@@ -1,5 +1,6 @@
 export * from './auth';
 export * from './unsplash';
+export * from './word-game';
 export * from './config.model';
 export * from './working-service.abstract';
 export * from './working-http-service.abstract';

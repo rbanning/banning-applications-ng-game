@@ -1,0 +1,26 @@
+<div class="guess" *ngIf="guess">
+  <ng-container *ngIf="guess.error">
+    <span class="letters">
+      <span class="letter" *ngFor="let item of letters">{{item}}</span>
+    </span>  
+    <span class="result error">{{guess.error}}</span>
+  </ng-container>
+  
+  <ng-container *ngIf="!guess.error">
+    <span class="letters">
+      <span class="letter" 
+        [class.correct]="mode === 'verbose' && item.result === 'correct'"
+        [class.near]="mode === 'verbose' && item.result === 'near-miss'"
+        *ngFor="let item of guess.results">{{item.letter}}</span>
+    </span>
+    <span class="result" *ngIf="!guess.correct; else done">{{guess.okCount}}</span>  
+    <span class="found" *ngIf="!guess.correct && mode !== 'verbose';">found</span>  
+  </ng-container>
+    
+</div>
+
+<ng-template #done>
+  <span class="result done">You Got It!</span>
+</ng-template>
+
+

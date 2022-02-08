@@ -2,6 +2,7 @@ import { AuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
 import { BannAppsUnsplashService } from "./bannapps-unsplash.service";
 import { ConfigService } from "./config.service";
+import { LetterWordGameService } from "./letter-word-game.service";
 import { PageTitleGuard } from "./page-title.guard";
 import { StorageService } from "./storage.service";
 import { ToastService } from "./toast.service";
@@ -15,7 +16,8 @@ export const sharedServices = [
   AuthService,
   UnsplashService,
   BannAppsUnsplashService,
-  UnsplashGameService
+  UnsplashGameService,
+  LetterWordGameService
 ];
 
 
@@ -37,6 +39,7 @@ export * from './toast.service';
 export * from './unsplash.service';
 export * from './bannapps-unsplash.service';
 export * from './unsplash-game.service';
+export * from './letter-word-game.service';
 
 //not including mocks in the base services index.  
 //they should be access directly from /mocks.

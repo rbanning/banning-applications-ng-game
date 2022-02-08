@@ -1,0 +1,27 @@
+.letters, .result {
+  @apply text-2xl py-2 px-4 inline-block rounded;
+}
+.letters {
+  @apply border-2 border-retro-blue-300 mx-2;
+}
+.letter {
+  @apply inline-block mr-2;
+}
+.letter.correct {
+  @apply text-green-600 font-bold;
+}
+.letter.near {
+  @apply text-amber-600 font-bold;
+}
+.result {
+  @apply bg-slate-100 text-retro-blue-800 mx-4;
+}
+.result.error {
+  @apply text-red-300;
+}
+.result.done {
+  @apply bg-green-200 font-bold;
+}
+.found {
+  @apply font-mono text-slate-300;
+}

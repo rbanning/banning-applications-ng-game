@@ -4,6 +4,7 @@ import { SharedModule } from '@app/shared';
 import { gameComponents } from './components';
 import { GameRoutingModule } from './game-routing.module';
 import { GameComponent } from './game.component';
+import { ThreeLetterWordHomeComponent } from './three-letter-word/three-letter-word-home/three-letter-word-home.component';
 import { UnsplashHomeComponent } from './unsplash/unsplash-home/unsplash-home.component';
 
 
@@ -11,7 +12,8 @@ import { UnsplashHomeComponent } from './unsplash/unsplash-home/unsplash-home.co
   declarations: [
     gameComponents,
     GameComponent,
-    UnsplashHomeComponent
+    UnsplashHomeComponent,
+    ThreeLetterWordHomeComponent
   ],
   imports: [
     SharedModule,

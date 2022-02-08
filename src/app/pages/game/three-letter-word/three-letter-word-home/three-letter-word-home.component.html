@@ -1,0 +1,83 @@
+<h1>The <strong>Three</strong> Letter Word Game</h1>
+
+
+<div class="instructions my-4">
+  <h3>Instructions</h3>
+  <p class="text-lg">
+    The <em>Three Letter Word Game</em> asks you to try to guess a three letter word.
+    You guess and we tell you how many letters are correct.  By <em>correct</em>, 
+    we mean that the letters are in the word.  They may or may <em>not</em> be 
+    in the correct location.  When you get the word correct - YOU WIN!
+  </p>
+  <div class="grow-box" *ngIf="showDetailedInstructions" [class.open]="showDetailedInstructions">
+    <p>
+      <a href="https://unsplash.com" target="_blank">Unsplash</a>
+      offers a repository of high quality photos free to use.  Their
+      motto: <strong>Photos for everyone</strong>.  Each year, Unsplash
+      celebrates the "best of open photography" with their 
+      <a href="https://unsplash.com/awards" target="_blank">awards showcase</a>. 
+      We have gathered many of the photos from recent years and created 
+      the <em>Unsplash Photo Game</em> to challenge you to group award finalists
+      together by category. 
+    </p>
+    <p>
+      We have also scattered in a few <em>Red Herring</em> photos.  These came from Unsplash but 
+      were not award finalists. Sometimes a red herring photo will appear to fit a category.
+      You have to get into the head of the judges to weed out those that do not belong.
+    </p>
+    <p>
+      Here are some free hints...
+    </p>
+    <ul class="list-disc px-4 m-4">
+      <li>To move a photo, drag it to another category</li>
+      <li>The order of the photos within a category does not matter</li>
+      <li>Double-click on a photo to view a larger image</li>
+      <li>There are three levels of play:
+        <ol class="list-decimal px-4 mx-2">
+          <li><strong>Novice:</strong> All of the categories are visible</li>
+          <li><strong>Competent:</strong> Categories become visible as a column is complete</li>
+          <li><strong>Pro:</strong> Categories become visible after every photo is in the right column</li>
+        </ol>
+      </li>
+    </ul>
+  </div>  
+  <div>
+    <button class="btn btn-sm" (click)="showDetailedInstructions = !showDetailedInstructions">
+      {{showDetailedInstructions ? "show less..." : "show more..."}}
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="game$ | async as game">
+  <ng-container *ngIf="game; else noGame">
+    <h2>Let's Play</h2>
+
+    <app-letter-word-game [game]="game" (winner)="setWinner($event)"></app-letter-word-game>
+
+  </ng-container>
+  
+</ng-container>
+
+<ng-template #noGame>
+  <div class="error">Oops. We could not create a game for you.</div>
+</ng-template>
+
+<app-modal [open]="!!winningGame" title="You are a Winner!">
+  <h2>Congratulations</h2>
+  <ng-container *ngIf="!!winningGame">
+    <p><strong>Excellent.</strong>
+      <br>
+      You figured out the 
+      {{winningGame.word.length}} letter word:
+      <br> 
+      <span class="text-2xl inline-block p-4 text-amber-600 font-bold font-mono">
+        {{winningGame.word}}
+      </span>
+      <br>
+      And it only took you {{winningGame.count}} guesses!
+    </p>
+  </ng-container>
+  
+</app-modal>
+
+

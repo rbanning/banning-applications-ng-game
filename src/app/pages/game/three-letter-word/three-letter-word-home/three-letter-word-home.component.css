@@ -1,0 +1,8 @@
+
+.grow-box {
+  transform: scale(0);
+  transform-origin: top;
+}
+.grow-box.open {
+animation: grow 0.7s ease-in-out forwards;
+}

@@ -1,0 +1,1 @@
+export * from './letter-word-game.model';

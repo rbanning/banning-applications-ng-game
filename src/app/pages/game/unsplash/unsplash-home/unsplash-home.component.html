@@ -63,6 +63,10 @@
       class="btn btn-sm btn-accent" 
       (click)="resetGame(game)">Reset the Game</button>
 
+      <button 
+        class="btn btn-sm btn-light" 
+        [routerLink]="['/game','unsplash', (gameId || 0) + 1]">New Game</button>
+
   </div>
 
   <div class="flex game" [class.done]="game.done">
@@ -123,10 +127,17 @@
   </div>
   <app-modal [open]="game.done === true" title="You are a Winner!">
     <h2>Congratulations</h2>
-    <p>Well Done.  You have successfully sorted the photos into the 
-      their categories: {{game.first.category}}, {{game.second.category}} 
-      and (the rest) {{game.herrings.category}} 
+    <p>
+      <strong>Well Done!</strong>
+      <br/>
+      You have successfully sorted the photos into the 
+      their categories: 
     </p>
+    <ul class="list-decimal mx-4 px-2">
+      <li>{{game.first.category}}</li>
+      <li>{{game.second.category}}</li>
+      <li>{{game.herrings.category}}</li>
+    </ul>
   </app-modal>
   <app-modal [open]="!!selected" title="Selected Photo" (dismissed)="selected = null" *ngIf="!!selected">
     <app-game-photo 

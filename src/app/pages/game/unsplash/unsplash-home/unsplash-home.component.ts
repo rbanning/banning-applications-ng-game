@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { debounceTime, fromEvent, Observable, Subscription } from 'rxjs';
+import { debounceTime, fromEvent, Observable, Subscription, tap } from 'rxjs';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 
 import { BannAppsUnsplashService, ToastService, IUnsplashGame, IUnsplashGameCategoryWithItems, UnsplashGameCategorySize, UnsplashGameService } from '@app/core/services';
@@ -20,7 +20,7 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
   gameId?: number;
   working$: Observable<boolean>;
   private subscriptions: Subscription[] = [];
-  game$: Observable<IUnsplashGame>;
+  game$?: Observable<IUnsplashGame>;
   selected: IGamePhoto | null = null;
 
   screenSize: ScreenSize = 'sm';
@@ -28,7 +28,6 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
   gameModes: GameMode[] = ['Novice', 'Competent', 'Pro'];
   showDetailedInstructions: boolean = false;
   categories: string[] = [];
-
   
   constructor(
     private bannapps: BannAppsUnsplashService,
@@ -37,10 +36,6 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) { 
     this.working$ = bannapps.working$();
-    this.game$ = gameService.buildGame(
-      { category: '3D', year: 2021 },
-      { category: 'Food & Drink', year: 2021 }
-    );
 
     //look for changes to the game id
     this.subscriptions.push(
@@ -51,6 +46,16 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
             //start with the first game
             this.gameId = 0;
           }
+          this.game$ = gameService.buildGame(this.gameId as number)
+            .pipe(
+              tap(game => {
+                //load the categories
+                this.categories = [game.first.category, game.second.category];
+                console.log("DEBUG: the unsplash game", {game, index: this.gameId, categories: this.categories});  
+
+              })
+            );
+          this.mode = 'Pro';
         }
       })
     );
@@ -114,11 +119,6 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
     //jump out!
     if (game.done) { return; }
 
-    if (this.categories.length == 0) {
-      //initialize if this the first attempt
-      this.categories = [game.first.category, game.second.category]
-    };
-
     this.checkColumnIsDone(
       game.first, 
       this.mode === 'Novice' ? this.categories[0] : undefined, 
@@ -132,15 +132,14 @@ export class UnsplashHomeComponent implements OnInit, OnDestroy {
       game.herrings.category, 
       this.categories);  //herring column must all be herrings
 
+    game.done = game.first.done && game.second.done && game.herrings.done;
+
     game.first.reveal = this.calculateReveal(game, game.first);
     game.second.reveal = this.calculateReveal(game, game.second);
     game.herrings.reveal = this.calculateReveal(game, game.herrings);
 
     game.first.category = (game.first.reveal ? (this.mode === 'Novice' ? this.categories[0] : game.first.items[0].category) : null) || '';  
     game.second.category = (game.second.reveal ? (this.mode === 'Novice' ? this.categories[1] : game.second.items[0].category) : null) || '';  
-
-    game.done = game.first.done && game.second.done && game.herrings.done;
-
   }
   private checkColumnIsDone(column: IUnsplashGameCategoryWithItems, category?: string, omit?: (string | null)[]) {
     omit = (omit || []).filter(Boolean);
