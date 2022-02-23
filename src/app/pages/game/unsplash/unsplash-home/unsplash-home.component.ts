@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { debounceTime, fromEvent, Observable, Subscription, tap } from 'rxjs';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 
-import { BannAppsUnsplashService, ToastService, IUnsplashGame, IUnsplashGameCategoryWithItems, UnsplashGameCategorySize, UnsplashGameService } from '@app/core/services';
-import { IGamePhoto, IGamePhotographer } from '@app/shared/models';
+import { BannAppsUnsplashService, ToastService, UnsplashGameService } from '@app/core/services';
+import { IGamePhoto, IGamePhotographer, IUnsplashGame, IUnsplashGameCategoryWithItems, UnsplashGameCategorySize } from '@app/shared/models';
 import { httpErrorToString, parseHttpError, unsplashUrl } from '@app/shared/common';
 
 export type GameMode = 'Novice' | 'Competent' | 'Pro';

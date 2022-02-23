@@ -1,35 +1,10 @@
 import { Injectable } from "@angular/core";
 import { IHttpErrorResponse, parseHttpError, randomElementFromArray, randomizeArray, takeFromArray } from "@app/shared/common";
-import { IGameAwardPhoto, IGamePhoto } from "@app/shared/models";
+import { IGameAwardPhoto, IGamePhoto, 
+  IUnsplashGame, IUnsplashGameConfig, UnsplashGameCategorySize, UnsplashGameRedHerring, UnsplashGameStatus, UnsplashPhotoFilter } from "@app/shared/models";
 import { forkJoin, from, map, Observable, switchMap, throwError } from "rxjs";
 import { BannAppsUnsplashService } from "./bannapps-unsplash.service";
 
-export type UnsplashGameStatus = 'PENDING' | 'READY' | 'ERROR';
-export const UnsplashGameCategorySize = 3;
-export const UnsplashGameRedHerring = "Red Herring";
-
-export interface IUnsplashGameCategory {
-  category: string;
-  year: number;
-}
-export interface IUnsplashGameCategoryWithItems extends IUnsplashGameCategory {
-  items: IGamePhoto[];
-  done?: boolean; //keeping this in to allow for easier mode
-  reveal?: boolean; //shows the category
-}
-export interface IUnsplashGame {
-  first: IUnsplashGameCategoryWithItems;
-  second: IUnsplashGameCategoryWithItems;
-  herrings: IUnsplashGameCategoryWithItems;
-  done?: boolean;
-}
-
-export type UnsplashPhotoFilter = (photo: IGamePhoto) => boolean;
-export interface IUnsplashGameConfig {
-  first: IUnsplashGameCategory;
-  second: IUnsplashGameCategory;
-  herrings: UnsplashPhotoFilter
-}
 
 @Injectable()
 export class UnsplashGameService {
