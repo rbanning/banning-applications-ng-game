@@ -8,7 +8,7 @@ export interface IGameScore {
 
 //be sure to extend all game models from this interface so we can create a score
 export interface IToGameScore {
-  toGameScore: (user: string | IUser) => IGameScore | null;
+  toGameScore?: (user: string | IUser) => IGameScore | null;
 }
 
 export class GameScore implements IGameScore {
